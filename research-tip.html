@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microscopy-Informed Tip Geometry Calibration | Munireach Nannory</title>
+<meta name="description" content="Using SEM/EBSD microscopy data and FEM simulation to identify the actual indenter tip geometry and reduce nanoindentation measurement error.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg-soft: #f5f5f7; --bg-card: #ffffff;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73; --text-tertiary: #a1a1a6;
+    --accent: #0071e3; --accent-hover: #0077ed;
+    --border: rgba(0,0,0,.08);
+    --shadow: 0 2px 20px rgba(0,0,0,.07); --shadow-lg: 0 8px 40px rgba(0,0,0,.12);
+    --nav-bg: rgba(255,255,255,.85);
+    --font: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --t: 0.25s cubic-bezier(0.4,0,0.2,1);
+    --max: 860px;
+  }
+  [data-theme="dark"] {
+    --bg: #000; --bg-soft: #0d0d0f; --bg-card: #161617;
+    --text-primary: #f5f5f7; --text-secondary: #a1a1a6; --text-tertiary: #6e6e73;
+    --accent: #2997ff; --border: rgba(255,255,255,.08);
+    --shadow: 0 2px 20px rgba(0,0,0,.4); --shadow-lg: 0 8px 40px rgba(0,0,0,.5);
+    --nav-bg: rgba(0,0,0,.85);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100; height:56px;
+    background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 max(24px, calc((100vw - 1100px)/2));
+  }
+  .nav-logo { font-size:15px; font-weight:600; color:var(--text-primary); text-decoration:none; letter-spacing:-.3px; }
+  .nav-right { display:flex; align-items:center; gap:10px; }
+  .back-btn {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13px; font-weight:500; font-family:var(--font);
+    color:var(--text-secondary); text-decoration:none;
+    padding:7px 14px; border-radius:980px; border:1px solid var(--border);
+    transition: all var(--t);
+  }
+  .back-btn:hover { background:var(--bg-soft); color:var(--text-primary); }
+  .theme-toggle {
+    background:none; border:1px solid var(--border); border-radius:8px;
+    padding:6px 10px; cursor:pointer; color:var(--text-secondary);
+    font-size:14px; line-height:1; transition:all var(--t); font-family:var(--font);
+  }
+  .theme-toggle:hover { background:var(--bg-soft); }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 120px max(24px, calc((100vw - var(--max))/2)) 72px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .hero-breadcrumb {
+    font-family: var(--font-mono); font-size:12px; color:var(--text-tertiary);
+    letter-spacing:.06em; text-transform:uppercase; margin-bottom:20px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .hero-breadcrumb a { color:var(--accent); text-decoration:none; }
+  .hero-breadcrumb a:hover { text-decoration:underline; }
+  .page-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--font-mono); font-size:11px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); background:rgba(0,113,227,.08);
+    border:1px solid rgba(0,113,227,.15); border-radius:100px;
+    padding:5px 12px; margin-bottom:20px;
+  }
+  [data-theme="dark"] .page-tag { background:rgba(41,151,255,.1); border-color:rgba(41,151,255,.2); }
+  .page-hero h1 {
+    font-size: clamp(28px, 4vw, 46px); font-weight:600; letter-spacing:-.04em;
+    line-height:1.15; color:var(--text-primary); margin-bottom:18px;
+  }
+  .page-hero .lead {
+    font-size:18px; color:var(--text-secondary); line-height:1.7;
+    max-width:660px; font-weight:300;
+  }
+  .status-row {
+    display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; align-items:center;
+  }
+  .status-badge {
+    font-family:var(--font-mono); font-size:11px; font-weight:500;
+    letter-spacing:.07em; padding:4px 12px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .status-active { background:rgba(0,200,100,.1); color:#007a3d; border:1px solid rgba(0,200,100,.2); }
+  .status-review { background:rgba(0,113,227,.1); color:var(--accent); border:1px solid rgba(0,113,227,.2); }
+  .status-prep { background:rgba(255,160,0,.1); color:#9a6800; border:1px solid rgba(255,160,0,.2); }
+  [data-theme="dark"] .status-active { color:#34d399; }
+  [data-theme="dark"] .status-prep { color:#ffb300; }
+  .stat-chips { display:flex; gap:20px; flex-wrap:wrap; margin-top:20px; }
+  .stat-chip { display:flex; flex-direction:column; gap:2px; }
+  .stat-val { font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--accent); letter-spacing:-.5px; }
+  .stat-lbl { font-size:12px; color:var(--text-tertiary); }
+
+  /* ── CONTENT ── */
+  .page-content {
+    padding: 72px max(24px, calc((100vw - var(--max))/2));
+    display:flex; flex-direction:column; gap:64px;
+  }
+  .content-section h2 {
+    font-size:clamp(20px,2.5vw,26px); font-weight:600; letter-spacing:-.3px;
+    color:var(--text-primary); margin-bottom:16px;
+    padding-bottom:12px; border-bottom:1px solid var(--border);
+  }
+  .content-section p {
+    font-size:16px; color:var(--text-secondary); line-height:1.8; margin-bottom:14px;
+  }
+  .content-section p:last-child { margin-bottom:0; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    background:var(--bg-soft); border:1px solid var(--border); border-left:3px solid var(--accent);
+    border-radius:12px; padding:20px 24px; margin:20px 0;
+  }
+  .callout-title { font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .callout p { font-size:15px; margin:0; }
+
+  /* ── RESULT CARDS ── */
+  .result-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin:20px 0; }
+  .result-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+    padding:20px; box-shadow:var(--shadow); text-align:center;
+  }
+  .result-val { font-family:var(--font-mono); font-size:26px; font-weight:700; color:var(--accent); letter-spacing:-.5px; }
+  .result-lbl { font-size:13px; color:var(--text-secondary); margin-top:4px; line-height:1.4; }
+
+  /* ── STEP LIST ── */
+  .steps { display:flex; flex-direction:column; gap:0; margin:20px 0; }
+  .step { display:grid; grid-template-columns:40px 1fr; gap:16px; align-items:start; padding:20px 0; border-bottom:1px solid var(--border); }
+  .step:last-child { border-bottom:none; }
+  .step-num { font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--accent); padding-top:2px; }
+  .step-body h4 { font-size:15px; font-weight:600; margin-bottom:6px; }
+  .step-body p { font-size:14px; color:var(--text-secondary); line-height:1.65; margin:0; }
+
+  /* ── TAG CHIPS ── */
+  .tag-row { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+  .chip {
+    font-family:var(--font-mono); font-size:12px; color:var(--text-secondary);
+    background:var(--bg-soft); border:1px solid var(--border);
+    border-radius:7px; padding:5px 11px;
+  }
+
+  /* ── FIGURE ── */
+  .fig-block { margin:28px 0; }
+  .fig-block img { width:100%; height:auto; border-radius:14px; border:1px solid var(--border); box-shadow:var(--shadow); display:block; }
+  .fig-caption { font-size:13px; color:var(--text-tertiary); margin-top:10px; text-align:center; font-style:italic; }
+
+  /* ── NEXT/PREV NAV ── */
+  .page-nav {
+    padding: 48px max(24px, calc((100vw - var(--max))/2));
+    border-top:1px solid var(--border);
+    display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  }
+  .page-nav-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:16px;
+    padding:20px 24px; text-decoration:none; transition:all var(--t);
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .page-nav-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:var(--accent); }
+  .page-nav-card.next { text-align:right; }
+  .pnc-dir { font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); letter-spacing:.08em; text-transform:uppercase; }
+  .pnc-title { font-size:15px; font-weight:600; color:var(--text-primary); }
+  .page-nav-card.empty { visibility:hidden; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding:28px max(24px, calc((100vw - 1100px)/2));
+    border-top:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+  footer p { font-size:13px; color:var(--text-tertiary); }
+  footer a { font-size:13px; color:var(--text-tertiary); text-decoration:none; transition:color var(--t); }
+  footer a:hover { color:var(--accent); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity:0; transform:translateY(14px); transition:opacity .45s ease, transform .45s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:700px) {
+    .page-nav { grid-template-columns:1fr; }
+    .result-grid { grid-template-columns:repeat(2,1fr); }
+    .stat-chips { gap:16px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Munireach Nannory</a>
+  <div class="nav-right">
+    <a href="index.html#research" class="back-btn">← Research</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☽</button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-breadcrumb"><a href="index.html">Home</a> › <a href="index.html#research">Research</a> › Tip Calibration</div>
+  <span class="page-tag">🔭 Completed — 2025</span>
+  <h1>Microscopy-Informed Tip Geometry Calibration</h1>
+  <p class="lead">Real indenter tips are not perfect spheres or ideal Berkovich pyramids. Tip blunting, asymmetry, and manufacturing defects cause systematic measurement errors. This work uses FEM to identify the effective tip geometry from experimental P–h data — reducing prediction error from ~20% to under 5%.</p>
+  <div class="status-row">
+    <span class="status-badge status-review">● Under Review</span>
+    <span class="status-badge status-active">● Nov 2023 – Nov 2025</span>
+  </div>
+  <div class="stat-chips">
+    <div class="stat-chip"><span class="stat-val">20%→&lt;5%</span><span class="stat-lbl">Error reduction achieved</span></div>
+    <div class="stat-chip"><span class="stat-val">3</span><span class="stat-lbl">Materials validated (Cu, Mo, W)</span></div>
+    <div class="stat-chip"><span class="stat-val">USNCCM</span><span class="stat-lbl">Presented at USNCCM 18, Chicago</span></div>
+  </div>
+</section>
+
+<main class="page-content">
+
+  <div class="content-section reveal">
+    <h2>Motivation</h2>
+    <p>In nanoindentation, the assumed indenter geometry is central to all property calculations. The Oliver-Pharr method and most FEM models assume an ideal spherical or conical geometry. In reality, spherical indenters have tip radii that deviate from nominal, and Berkovich indenters develop blunting with use.</p>
+    <p>This geometric mismatch is a primary source of systematic error — not random noise, but a repeatable bias that causes consistent over- or under-prediction of hardness and modulus. Standard area function calibration on fused silica partially corrects for this, but does not capture the full 3D geometry.</p>
+    <div class="callout">
+      <div class="callout-title">Key insight</div>
+      <p>If the actual tip geometry can be characterized — from SEM imaging or inferred from FEM fitting — and incorporated into the simulation, the systematic error in material property extraction is dramatically reduced.</p>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Approach</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <h4>Reference material characterization</h4>
+          <p>Cu wire (45 μm diameter, polycrystalline), Mo, and W are selected as calibration materials. SEM and EBSD provide grain structure, texture, and reference mechanical properties. These serve as the ground-truth against which FEM predictions are compared.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <h4>Parametric tip geometry FEM study</h4>
+          <p>A parametric Abaqus study sweeps tip radius R (from nominal to 2× blunted) and cone half-angle θ for conical equivalents. For each geometry, the simulated P–h curve is computed and compared to experiment. The best-fit geometry minimizes the RMS error across the full loading-unloading cycle.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <h4>Geometry identification</h4>
+          <p>An optimization loop selects the effective tip geometry that minimizes P–h curve mismatch across all three reference materials simultaneously — ensuring the identified geometry is physically meaningful, not just a material-specific fit.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <h4>Corrected property extraction</h4>
+          <p>With the calibrated tip geometry, FEM simulations with the correct indenter shape are used for inverse property extraction on new materials. This corrected pipeline reduces systematic error from ~20% to under 5% for E and H predictions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Key results</h2>
+    <div class="result-grid">
+      <div class="result-card"><div class="result-val">~20%</div><div class="result-lbl">Initial H error with ideal spherical geometry assumption</div></div>
+      <div class="result-card"><div class="result-val">&lt;5%</div><div class="result-lbl">H error after tip geometry calibration</div></div>
+      <div class="result-card"><div class="result-val">Cu/Mo/W</div><div class="result-lbl">Validated across 3 reference materials with different property ranges</div></div>
+      <div class="result-card"><div class="result-val">Single fit</div><div class="result-lbl">One calibrated geometry works across all three materials — physically consistent</div></div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Practical impact</div>
+      <p>This calibration procedure can be run once per indenter tip and significantly improves the accuracy of all subsequent nanoindentation measurements without requiring additional experiments. It is especially critical for thin-film characterization where small absolute errors in H and E have large downstream consequences.</p>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Presentations</h2>
+    <div class="callout">
+      <div class="callout-title">Conference — USNCCM 18 · Chicago · July 2025</div>
+      <p>Nannory M.*, Chawla V., Truster T. — <em>Identifying the Spherical Tip Geometry for Nanoindentation Using Finite Element Method.</em> Oral presentation.</p>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Conference — ASME IMECE 2024 · Portland · Nov 2024</div>
+      <p>Nannory M.*, Chawla V., Penumadu D., Truster T. — <em>Characterization of Copper at High Temperature Using Nanoindentation and FEM.</em> Oral presentation.</p>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Manuscript under review</div>
+      <p>Nannory M., Chawla V., Truster T. — <em>Microscopy-Informed Tip Geometry Identification for Spherical Nanoindentation via Finite Element Analysis.</em></p>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Tools &amp; methods</h2>
+    <div class="tag-row">
+      <span class="chip">Abaqus/CAE</span><span class="chip">SEM / EBSD</span><span class="chip">Oliver-Pharr analysis</span><span class="chip">Python optimization</span><span class="chip">3D FEM contact</span><span class="chip">Nonlinear elastoplastic</span><span class="chip">Cu / Mo / W calibration</span>
+    </div>
+  </div>
+
+</main>
+
+<nav class="page-nav">
+  <a href="research-ml.html" class="page-nav-card">
+    <span class="pnc-dir">← Previous</span>
+    <span class="pnc-title">ML for Inverse Property Extraction</span>
+  </a>
+  <span class="page-nav-card empty"></span>
+</nav>
+
+<footer>
+  <p>© 2026 Munireach Nannory · University of Tennessee, Knoxville</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+<script>
+  const toggle = document.getElementById('themeToggle');
+  function setTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.textContent = dark ? '☀' : '☽';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+  const saved = localStorage.getItem('theme');
+  setTheme(saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+  toggle.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark'));
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

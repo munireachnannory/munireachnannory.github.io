@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Substrate Effect & Thin-Film Correction | Munireach Nannory</title>
+<meta name="description" content="Research on navigating the substrate effect in thin-film nanoindentation using FEM sensitivity studies and ML-based correction frameworks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg-soft: #f5f5f7; --bg-card: #ffffff;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73; --text-tertiary: #a1a1a6;
+    --accent: #0071e3; --accent-hover: #0077ed;
+    --border: rgba(0,0,0,.08);
+    --shadow: 0 2px 20px rgba(0,0,0,.07); --shadow-lg: 0 8px 40px rgba(0,0,0,.12);
+    --nav-bg: rgba(255,255,255,.85);
+    --font: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --t: 0.25s cubic-bezier(0.4,0,0.2,1);
+    --max: 860px;
+  }
+  [data-theme="dark"] {
+    --bg: #000; --bg-soft: #0d0d0f; --bg-card: #161617;
+    --text-primary: #f5f5f7; --text-secondary: #a1a1a6; --text-tertiary: #6e6e73;
+    --accent: #2997ff; --border: rgba(255,255,255,.08);
+    --shadow: 0 2px 20px rgba(0,0,0,.4); --shadow-lg: 0 8px 40px rgba(0,0,0,.5);
+    --nav-bg: rgba(0,0,0,.85);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100; height:56px;
+    background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 max(24px, calc((100vw - 1100px)/2));
+  }
+  .nav-logo { font-size:15px; font-weight:600; color:var(--text-primary); text-decoration:none; letter-spacing:-.3px; }
+  .nav-right { display:flex; align-items:center; gap:10px; }
+  .back-btn {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13px; font-weight:500; font-family:var(--font);
+    color:var(--text-secondary); text-decoration:none;
+    padding:7px 14px; border-radius:980px; border:1px solid var(--border);
+    transition: all var(--t);
+  }
+  .back-btn:hover { background:var(--bg-soft); color:var(--text-primary); }
+  .theme-toggle {
+    background:none; border:1px solid var(--border); border-radius:8px;
+    padding:6px 10px; cursor:pointer; color:var(--text-secondary);
+    font-size:14px; line-height:1; transition:all var(--t); font-family:var(--font);
+  }
+  .theme-toggle:hover { background:var(--bg-soft); }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 120px max(24px, calc((100vw - var(--max))/2)) 72px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .hero-breadcrumb {
+    font-family: var(--font-mono); font-size:12px; color:var(--text-tertiary);
+    letter-spacing:.06em; text-transform:uppercase; margin-bottom:20px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .hero-breadcrumb a { color:var(--accent); text-decoration:none; }
+  .hero-breadcrumb a:hover { text-decoration:underline; }
+  .page-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--font-mono); font-size:11px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); background:rgba(0,113,227,.08);
+    border:1px solid rgba(0,113,227,.15); border-radius:100px;
+    padding:5px 12px; margin-bottom:20px;
+  }
+  [data-theme="dark"] .page-tag { background:rgba(41,151,255,.1); border-color:rgba(41,151,255,.2); }
+  .page-hero h1 {
+    font-size: clamp(28px, 4vw, 46px); font-weight:600; letter-spacing:-.04em;
+    line-height:1.15; color:var(--text-primary); margin-bottom:18px;
+  }
+  .page-hero .lead {
+    font-size:18px; color:var(--text-secondary); line-height:1.7;
+    max-width:660px; font-weight:300;
+  }
+  .status-row {
+    display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; align-items:center;
+  }
+  .status-badge {
+    font-family:var(--font-mono); font-size:11px; font-weight:500;
+    letter-spacing:.07em; padding:4px 12px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .status-active { background:rgba(0,200,100,.1); color:#007a3d; border:1px solid rgba(0,200,100,.2); }
+  .status-review { background:rgba(0,113,227,.1); color:var(--accent); border:1px solid rgba(0,113,227,.2); }
+  .status-prep { background:rgba(255,160,0,.1); color:#9a6800; border:1px solid rgba(255,160,0,.2); }
+  [data-theme="dark"] .status-active { color:#34d399; }
+  [data-theme="dark"] .status-prep { color:#ffb300; }
+  .stat-chips { display:flex; gap:20px; flex-wrap:wrap; margin-top:20px; }
+  .stat-chip { display:flex; flex-direction:column; gap:2px; }
+  .stat-val { font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--accent); letter-spacing:-.5px; }
+  .stat-lbl { font-size:12px; color:var(--text-tertiary); }
+
+  /* ── CONTENT ── */
+  .page-content {
+    padding: 72px max(24px, calc((100vw - var(--max))/2));
+    display:flex; flex-direction:column; gap:64px;
+  }
+  .content-section h2 {
+    font-size:clamp(20px,2.5vw,26px); font-weight:600; letter-spacing:-.3px;
+    color:var(--text-primary); margin-bottom:16px;
+    padding-bottom:12px; border-bottom:1px solid var(--border);
+  }
+  .content-section p {
+    font-size:16px; color:var(--text-secondary); line-height:1.8; margin-bottom:14px;
+  }
+  .content-section p:last-child { margin-bottom:0; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    background:var(--bg-soft); border:1px solid var(--border); border-left:3px solid var(--accent);
+    border-radius:12px; padding:20px 24px; margin:20px 0;
+  }
+  .callout-title { font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .callout p { font-size:15px; margin:0; }
+
+  /* ── RESULT CARDS ── */
+  .result-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin:20px 0; }
+  .result-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+    padding:20px; box-shadow:var(--shadow); text-align:center;
+  }
+  .result-val { font-family:var(--font-mono); font-size:26px; font-weight:700; color:var(--accent); letter-spacing:-.5px; }
+  .result-lbl { font-size:13px; color:var(--text-secondary); margin-top:4px; line-height:1.4; }
+
+  /* ── STEP LIST ── */
+  .steps { display:flex; flex-direction:column; gap:0; margin:20px 0; }
+  .step { display:grid; grid-template-columns:40px 1fr; gap:16px; align-items:start; padding:20px 0; border-bottom:1px solid var(--border); }
+  .step:last-child { border-bottom:none; }
+  .step-num { font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--accent); padding-top:2px; }
+  .step-body h4 { font-size:15px; font-weight:600; margin-bottom:6px; }
+  .step-body p { font-size:14px; color:var(--text-secondary); line-height:1.65; margin:0; }
+
+  /* ── TAG CHIPS ── */
+  .tag-row { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+  .chip {
+    font-family:var(--font-mono); font-size:12px; color:var(--text-secondary);
+    background:var(--bg-soft); border:1px solid var(--border);
+    border-radius:7px; padding:5px 11px;
+  }
+
+  /* ── FIGURE ── */
+  .fig-block { margin:28px 0; }
+  .fig-block img { width:100%; height:auto; border-radius:14px; border:1px solid var(--border); box-shadow:var(--shadow); display:block; }
+  .fig-caption { font-size:13px; color:var(--text-tertiary); margin-top:10px; text-align:center; font-style:italic; }
+
+  /* ── NEXT/PREV NAV ── */
+  .page-nav {
+    padding: 48px max(24px, calc((100vw - var(--max))/2));
+    border-top:1px solid var(--border);
+    display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  }
+  .page-nav-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:16px;
+    padding:20px 24px; text-decoration:none; transition:all var(--t);
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .page-nav-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:var(--accent); }
+  .page-nav-card.next { text-align:right; }
+  .pnc-dir { font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); letter-spacing:.08em; text-transform:uppercase; }
+  .pnc-title { font-size:15px; font-weight:600; color:var(--text-primary); }
+  .page-nav-card.empty { visibility:hidden; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding:28px max(24px, calc((100vw - 1100px)/2));
+    border-top:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+  footer p { font-size:13px; color:var(--text-tertiary); }
+  footer a { font-size:13px; color:var(--text-tertiary); text-decoration:none; transition:color var(--t); }
+  footer a:hover { color:var(--accent); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity:0; transform:translateY(14px); transition:opacity .45s ease, transform .45s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:700px) {
+    .page-nav { grid-template-columns:1fr; }
+    .result-grid { grid-template-columns:repeat(2,1fr); }
+    .stat-chips { gap:16px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Munireach Nannory</a>
+  <div class="nav-right">
+    <a href="index.html#research" class="back-btn">← Research</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☽</button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-breadcrumb"><a href="index.html">Home</a> › <a href="index.html#research">Research</a> › Substrate Effect</div>
+  <span class="page-tag">🔬 Active Research</span>
+  <h1>Substrate Effect &amp; Thin-Film Correction</h1>
+  <p class="lead">When an indenter penetrates a thin film, the underlying substrate distorts the measured hardness and modulus. This work builds a systematic FEM-based framework to quantify, map, and correct for this error across a wide range of film–substrate combinations.</p>
+  <div class="status-row">
+    <span class="status-badge status-active">● In Progress — Jul 2024–Present</span>
+    <span class="status-badge status-prep">● Manuscript in Preparation</span>
+  </div>
+  <div class="stat-chips">
+    <div class="stat-chip"><span class="stat-val">1000s</span><span class="stat-lbl">FEM simulations run</span></div>
+    <div class="stat-chip"><span class="stat-val">2</span><span class="stat-lbl">Regimes studied</span></div>
+    <div class="stat-chip"><span class="stat-val">&lt;5%</span><span class="stat-lbl">Target correction error</span></div>
+  </div>
+</section>
+
+<main class="page-content">
+
+  <div class="content-section reveal">
+    <h2>Motivation</h2>
+    <p>Thin-film nanoindentation is used to measure mechanical properties — hardness (H) and elastic modulus (E) — of coatings and surface layers as thin as tens of nanometers. However, when the indentation depth exceeds roughly 10% of the film thickness (the so-called "10% rule"), the measurement is no longer purely representative of the film: the substrate underneath begins to influence the load–displacement response.</p>
+    <p>This substrate effect leads to systematic over- or under-estimation of material properties depending on whether the substrate is harder or softer than the film. Existing analytical correction models (e.g., Doerner-Nix, Gao, Bec) rely on simplifying assumptions that break down at large indentation depths or for highly mismatched film–substrate systems.</p>
+    <div class="callout">
+      <div class="callout-title">Core problem</div>
+      <p>The 10% rule is not universally reliable. For very thin films (&lt;200 nm) or extreme property mismatch, significant substrate influence appears well before 10% depth — yet existing correction models fail to capture this. A data-driven correction framework is needed.</p>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Approach</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <h4>Parametric FEM study</h4>
+          <p>Build 2D axisymmetric Abaqus/CAE models covering a broad parameter space: film thickness (50–500 nm), E and H ratios (soft-on-hard and hard-on-soft), indentation depth ratios (h/t = 0.05–0.50), and indenter geometry (spherical and Berkovich-equivalent conical).</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <h4>Sensitivity mapping</h4>
+          <p>For each parameter combination, extract the measured H and E values and compute the percent error relative to the "true" film-only properties. Map these errors as a function of normalized depth h/t across both regimes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <h4>ML correction model</h4>
+          <p>Train a neural network surrogate on the FEM dataset to predict the substrate-induced error given observable inputs (indentation depth, load–displacement curve features, estimated modulus mismatch). The model enables real-time correction of experimental measurements.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <h4>Experimental validation</h4>
+          <p>Validate the correction framework against Cu, Mo, and W thin-film nanoindentation experiments. Compare corrected predictions against reference bulk values to quantify improvement over existing analytical models.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Key findings so far</h2>
+    <div class="result-grid">
+      <div class="result-card"><div class="result-val">≫10%</div><div class="result-lbl">Soft-on-hard error onset — much earlier than the 10% rule predicts</div></div>
+      <div class="result-card"><div class="result-val">E/H</div><div class="result-lbl">Mismatch ratio is the dominant driver of substrate influence magnitude</div></div>
+      <div class="result-card"><div class="result-val">2D</div><div class="result-lbl">Axisymmetric models validated against 3D — 10× faster at equivalent accuracy</div></div>
+      <div class="result-card"><div class="result-val">~15%</div><div class="result-lbl">Maximum observed hardness over-prediction in hard-on-soft at h/t = 0.30</div></div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Current focus</div>
+      <p>Expanding the FEM dataset to cover a wider mismatch ratio range and training the first ML correction model prototype. Target submission: late 2025.</p>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Tools &amp; methods</h2>
+    <div class="tag-row">
+      <span class="chip">Abaqus/CAE</span><span class="chip">Python scripting</span><span class="chip">2D axisymmetric FEM</span><span class="chip">Elastic-plastic material</span><span class="chip">Contact mechanics</span><span class="chip">Neural networks</span><span class="chip">MATLAB post-processing</span><span class="chip">Linux HPC cluster</span>
+    </div>
+  </div>
+
+  <div class="content-section reveal">
+    <h2>Related outputs</h2>
+    <div class="callout">
+      <div class="callout-title">Manuscript in preparation</div>
+      <p>Nannory M., Chawla V., Zhu H., Rack P., Penumadu D., Truster T. — <em>Sensitivity of Thin-Film Nanoindentation to Substrate Effect: A Finite Element Study.</em> Target journal: <em>Computational Materials Science</em>.</p>
+    </div>
+  </div>
+
+</main>
+
+<nav class="page-nav">
+  <span class="page-nav-card empty"></span>
+  <a href="research-fem.html" class="page-nav-card next">
+    <span class="pnc-dir">Next →</span>
+    <span class="pnc-title">FEM Automation Pipeline</span>
+  </a>
+</nav>
+
+<footer>
+  <p>© 2026 Munireach Nannory · University of Tennessee, Knoxville</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+<script>
+  const toggle = document.getElementById('themeToggle');
+  function setTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.textContent = dark ? '☀' : '☽';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+  const saved = localStorage.getItem('theme');
+  setTheme(saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+  toggle.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark'));
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
