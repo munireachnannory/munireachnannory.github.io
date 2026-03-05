@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackathon Projects · Munireach Nannory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fff;--bg-soft:#f5f5f7;--bg-card:#fff;--text-primary:#1d1d1f;--text-secondary:#6e6e73;--text-tertiary:#a1a1a6;--accent:#0071e3;--accent-hover:#0077ed;--accent2:#ff6b35;--border:rgba(0,0,0,.08);--shadow:0 2px 20px rgba(0,0,0,.07);--shadow-lg:0 8px 40px rgba(0,0,0,.12);--nav-bg:rgba(255,255,255,.82);--radius-card:16px;--font:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;--font-mono:'DM Mono',monospace;--t:0.25s cubic-bezier(0.4,0,0.2,1)}
+[data-theme="dark"]{--bg:#000;--bg-soft:#0d0d0f;--bg-card:#161617;--text-primary:#f5f5f7;--text-secondary:#a1a1a6;--text-tertiary:#6e6e73;--accent:#2997ff;--accent-hover:#409cff;--border:rgba(255,255,255,.08);--shadow:0 2px 20px rgba(0,0,0,.4);--shadow-lg:0 8px 40px rgba(0,0,0,.5);--nav-bg:rgba(0,0,0,.82)}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text-primary);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background var(--t),color var(--t);overflow-x:hidden}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1200px)/2))}
+.nav-logo{font-size:17px;font-weight:600;color:var(--text-primary);text-decoration:none;letter-spacing:-.3px}
+.nav-back{font-size:13px;color:var(--text-secondary);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color var(--t)}
+.nav-back:hover{color:var(--accent)}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--text-secondary);font-size:14px;line-height:1;transition:all var(--t);font-family:var(--font)}
+.theme-toggle:hover{background:var(--bg-soft)}
+/* HERO */
+.page-hero{min-height:52vh;display:flex;align-items:flex-end;padding:96px max(24px,calc((100vw - 1200px)/2)) 64px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 70% 40%,rgba(255,107,53,.08) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 10% 80%,rgba(0,113,227,.06) 0%,transparent 50%)}
+[data-theme="dark"] .hero-bg{background:radial-gradient(ellipse 70% 60% at 70% 40%,rgba(255,107,53,.13) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 10% 80%,rgba(41,151,255,.1) 0%,transparent 50%)}
+.page-hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative}
+.hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.eyebrow-line{width:32px;height:2px;background:var(--accent2);border-radius:2px}
+.page-hero h1{font-size:clamp(36px,5vw,64px);font-weight:700;letter-spacing:-.04em;line-height:1.05;margin-bottom:18px;max-width:760px}
+.page-hero h1 span{color:var(--accent2)}
+.page-hero p{font-size:clamp(16px,1.8vw,20px);color:var(--text-secondary);max-width:580px;line-height:1.65;margin-bottom:28px}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;padding:6px 14px;font-size:13px;color:var(--text-secondary);box-shadow:var(--shadow)}
+.pill-dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);flex-shrink:0}
+/* MAIN LAYOUT */
+main{max-width:1200px;margin:0 auto;padding:0 max(24px,calc((100vw - 1200px)/2)) 96px}
+/* PROJECT CARD */
+.project-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:40px;padding-top:72px}
+.project-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#ff6b35,#f7931e);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;flex-shrink:0;margin-top:4px}
+.project-meta{flex:1}
+.project-meta h2{font-size:clamp(24px,3.5vw,38px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:10px}
+.project-meta .byline{font-size:14px;color:var(--text-tertiary);display:flex;gap:16px;flex-wrap:wrap}
+.byline-item{display:flex;align-items:center;gap:5px}
+/* SECTIONS */
+.content-section{margin-bottom:56px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.content-section h3{font-size:clamp(20px,2.5vw,26px);font-weight:600;letter-spacing:-.3px;margin-bottom:14px}
+.content-section p{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:14px}
+.content-section p:last-child{margin-bottom:0}
+/* FEATURE GRID */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:8px}
+.feature-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-card);padding:22px;transition:transform var(--t),box-shadow var(--t)}
+.feature-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.feature-icon{font-size:24px;margin-bottom:10px}
+.feature-card h4{font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-.1px}
+.feature-card p{font-size:14px;color:var(--text-secondary);line-height:1.6}
+/* RESULTS GRID */
+.results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:8px}
+.result-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;box-shadow:var(--shadow)}
+.result-stat .value{font-size:28px;font-weight:700;color:var(--accent);letter-spacing:-.02em;line-height:1;margin-bottom:5px}
+.result-stat .label{font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em}
+/* CODE BLOCK */
+.code-block{background:var(--bg-soft);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:16px 0}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border)}
+.code-lang{font-size:11px;font-family:var(--font-mono);color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em}
+.code-dots{display:flex;gap:5px}
+.code-dots span{width:10px;height:10px;border-radius:50%}
+.code-dots span:nth-child(1){background:#ff5f57}
+.code-dots span:nth-child(2){background:#febc2e}
+.code-dots span:nth-child(3){background:#28c840}
+pre{padding:20px;overflow-x:auto;font-size:13px;line-height:1.65;font-family:var(--font-mono);color:var(--text-secondary)}
+pre .kw{color:var(--accent)}
+pre .fn{color:#a78bfa}
+pre .cm{color:var(--text-tertiary);font-style:italic}
+pre .st{color:#34c759}
+pre .nm{color:#ff6b35}
+/* TIMELINE */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--accent2),var(--accent))}
+.timeline-item{position:relative;margin-bottom:28px}
+.timeline-item::before{content:'';position:absolute;left:-28px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent2);border:2px solid var(--bg)}
+.timeline-item h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.timeline-item p{font-size:14px;color:var(--text-secondary);line-height:1.6}
+.timeline-item .time{font-size:11px;font-family:var(--font-mono);color:var(--accent2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+/* WHAT I LEARNED */
+.insight-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.insight-list li{display:flex;align-items:flex-start;gap:12px;font-size:16px;color:var(--text-secondary);line-height:1.6}
+.insight-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+/* TAG ROW */
+.tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tag{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);background:var(--bg-soft);border:1px solid var(--border);border-radius:6px;padding:4px 9px}
+/* MORE PROJECTS TEASER */
+.more-section{margin-top:72px;padding-top:48px;border-top:1px solid var(--border)}
+.more-section h3{font-size:22px;font-weight:600;letter-spacing:-.3px;margin-bottom:8px}
+.more-section p{font-size:16px;color:var(--text-secondary);margin-bottom:24px}
+.coming-card{background:var(--bg-soft);border:2px dashed var(--border);border-radius:20px;padding:32px;display:flex;align-items:center;gap:20px;color:var(--text-tertiary)}
+.coming-card .coming-icon{font-size:32px;flex-shrink:0}
+.coming-card h4{font-size:16px;font-weight:500;margin-bottom:4px}
+.coming-card p{font-size:14px;line-height:1.5}
+/* BACK CTA */
+.back-cta{margin-top:48px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:980px;font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;text-decoration:none;border:none;transition:all var(--t)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-outline:hover{background:var(--bg-soft);color:var(--text-primary)}
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:28px max(24px,calc((100vw - 1200px)/2));display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer span,footer a{font-size:14px;color:var(--text-tertiary);text-decoration:none;transition:color var(--t)}
+footer a:hover{color:var(--text-primary)}
+.footer-links{display:flex;gap:18px}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* HIGHLIGHT BANNER */
+.highlight-banner{background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(0,113,227,.06));border:1px solid rgba(255,107,53,.2);border-radius:14px;padding:20px 24px;margin-bottom:28px;display:flex;gap:16px;align-items:flex-start}
+.hb-icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.hb-text{font-size:15px;color:var(--text-secondary);line-height:1.65}
+.hb-text strong{color:var(--text-primary)}
+/* FIGURE / IMAGE */
+.fig-block{margin:28px 0;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
+.fig-block img{width:100%;display:block;background:var(--bg-soft)}
+.fig-caption{padding:12px 18px;background:var(--bg-soft);border-top:1px solid var(--border);font-size:13px;color:var(--text-tertiary);line-height:1.5;font-family:var(--font-mono)}
+.fig-caption strong{color:var(--text-secondary);font-family:var(--font)}
+.fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.fig-grid .fig-block{margin:0}
+/* PROJECT DIVIDER */
+.project-divider{border:none;border-top:2px solid var(--border);margin:80px 0 0;padding-top:72px}
+.project-divider-inner{display:flex;align-items:center;gap:16px;margin-bottom:40px}
+.divider-badge-day1{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;flex-shrink:0;margin-top:4px}
+/* RESPONSIVE */
+@media(max-width:700px){.project-header{flex-direction:column;gap:10px}.page-hero{min-height:auto;padding-bottom:40px}main{padding-bottom:60px}.fig-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav role="navigation" aria-label="Page navigation">
+  <a href="index.html" class="nav-logo">Munireach Nannory</a>
+  <a href="index.html#hackathon" class="nav-back">&#8592; Back to portfolio</a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">&#9789;</button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="page-hero-inner">
+    <div class="hero-eyebrow"><span class="eyebrow-line"></span> Hackathon projects</div>
+    <h1>Building with AI &amp; physics <span>under pressure.</span></h1>
+    <p>Short-burst, high-intensity competitions where I prototype real solutions to real scientific problems — combining LLM-assisted coding, machine learning, and physical intuition.</p>
+    <div class="hero-pills">
+      <div class="pill"><div class="pill-dot"></div> Python + ML</div>
+      <div class="pill"><div class="pill-dot"></div> Real experimental data</div>
+      <div class="pill"><div class="pill-dot"></div> 3–4 hour sprints</div>
+      <div class="pill"><div class="pill-dot"></div> LLM-assisted development</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- ─────────────────────────────────────────────
+       PROJECT 1: MFM HACKATHON
+  ───────────────────────────────────────────── -->
+  <div class="project-header reveal">
+    <div class="project-badge">&#9889; Day 2 &middot; 2026</div>
+    <div class="project-meta">
+      <h2>MFM Combinatorial Library: AI-Powered Magnetic Materials Characterization</h2>
+      <div class="byline">
+        <span class="byline-item">&#128197; March 3, 2026</span>
+        <span class="byline-item">&#9200; ~3 hours</span>
+        <span class="byline-item">&#128201; 23 sites &middot; 7,165 particles detected</span>
+        <span class="byline-item">&#127981; Combinatorial materials library</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="content-section reveal">
+    <div class="section-label">Context</div>
+    <h3>The challenge</h3>
+    <p>Given a real experimental dataset from a 23-site combinatorial magnetic thin-film library — raw AFM/MFM binary files — extract physically meaningful structural and magnetic properties, map them spatially, and deliver insight in roughly 3 hours. No labeled answers. No pre-built pipeline. Just the data, Python, and the clock.</p>
+    <div class="highlight-banner">
+      <div class="hb-icon">&#128302;</div>
+      <div class="hb-text"><strong>What makes this a real problem:</strong> Combinatorial libraries are used in materials discovery to screen many compositions at once. Rapidly mapping how magnetic properties vary across the library is essential for identifying promising compositions — but the analysis pipeline doesn't come packaged. You have to build it from scratch, fast.</div>
+    </div>
+  </div>
+
+  <!-- THE DATA -->
+  <div class="content-section reveal">
+    <div class="section-label">Dataset</div>
+    <h3>What I was working with</h3>
+    <p>The dataset consisted of MFM (Magnetic Force Microscopy) and AFM (Atomic Force Microscopy) images acquired at 23 spatial positions across a combinatorial thin-film sample. Each site contained 5 image channels including height (topography) and MFM phase (magnetic response), at 256×256 pixel resolution.</p>
+    <div class="results-grid">
+      <div class="result-stat"><div class="value">23</div><div class="label">Sites</div></div>
+      <div class="result-stat"><div class="value">5</div><div class="label">Channels / site</div></div>
+      <div class="result-stat"><div class="value">256²</div><div class="label">Pixels / image</div></div>
+      <div class="result-stat"><div class="value">2 nm</div><div class="label">Pixel calibration</div></div>
+      <div class="result-stat"><div class="value">pkl</div><div class="label">File format</div></div>
+    </div>
+  </div>
+
+  <!-- APPROACH -->
+  <div class="content-section reveal">
+    <div class="section-label">Approach</div>
+    <h3>Pipeline architecture</h3>
+    <p>I built the analysis in modular stages, each producing a spatial map across the 23 sites. The strategy was to compute per-site scalar metrics, then use cubic interpolation to produce continuous spatial maps — overlaid with the measured site positions to show ground truth alongside the interpolation.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#127925;</div>
+        <h4>FFT Autocorrelation — Correlation Length</h4>
+        <p>Wiener–Khinchin theorem applied to MFM phase images. Hanning window to suppress wrap-around artifacts. Radial-averaged autocorrelation decays to find the characteristic magnetic domain size.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#9881;</div>
+        <h4>AFM Surface Roughness — Sa, Sq, Rz, Rsk, Rku</h4>
+        <p>Best-fit plane leveling on height channel. Five ISO-style roughness metrics computed per site. Spatial maps reveal how surface texture changes across the combinatorial library.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128302;</div>
+        <h4>Watershed Particle Detection</h4>
+        <p>Otsu thresholding → binary mask → distance transform → peak-local-max markers → watershed labels → regionprops. Applied to all 23 sites. Extracted size, area, perimeter, eccentricity per particle.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128200;</div>
+        <h4>Gabor Filter Texture Analysis</h4>
+        <p>Multi-frequency, multi-orientation Gabor filter bank to characterize texture energy, dominant orientation, and anisotropy. Reveals whether the surface has preferential structural directionality.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#9878;</div>
+        <h4>Edge Density &amp; Boundary Roughness</h4>
+        <p>Canny edge detection + Sobel gradient magnitude to measure how sharp and dense the structural boundaries are across the sample. Edge orientation variance computed from gradient angles.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127744;</div>
+        <h4>FFT Spectral Features</h4>
+        <p>Power spectrum decomposition: total power, low/high-frequency fraction, dominant spatial frequency, and spectral entropy. Entropy measures how ordered vs. disordered each site's structure is.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#9889;</div>
+        <h4>Magnetic Domain Shape (MFM)</h4>
+        <p>Otsu-threshold MFM phase → binary positive/negative domains → label + regionprops for count, mean size, circularity, eccentricity, and a size uniformity index.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128307;</div>
+        <h4>Magnetic Intensity &amp; Contrast</h4>
+        <p>RMS magnetic signal, Michelson contrast, positive vs. negative domain intensity balance, local contrast variation. Tells you how strong and how symmetric the magnetic response is.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKFLOW -->
+  <div class="content-section reveal">
+    <div class="section-label">How it was built</div>
+    <h3>LLM + physics intuition: the real workflow</h3>
+    <p>This project was built using a hybrid approach: I provided physical understanding and scientific direction, while using an LLM as a coding accelerator to rapidly scaffold boilerplate, debug edge cases, and iterate on visualization layouts. The division of labor looked something like this:</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">Hour 0–0.5</div>
+        <h4>Data loading &amp; exploration</h4>
+        <p>Unpacked the pickle file, inspected shape (23, 5, 256, 256), visualized raw MFM and height channels to understand data quality, noise level, and scale. Identified channel 0 = height, channel 4 = MFM phase.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="time">Hour 0.5–1.5</div>
+        <h4>Core physics metrics — correlation length &amp; roughness</h4>
+        <p>Implemented FFT autocorrelation for magnetic correlation length. Addressed the TwoSlopeNorm issue on near-zero images. Built plane-leveling and roughness pipeline. Produced first spatial maps.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="time">Hour 1.5–2.5</div>
+        <h4>Particle detection pipeline</h4>
+        <p>Watershed segmentation on height images. Tuned sigma, min_size, and min_distance parameters. Ran across all 23 sites. Detected ~7,165 particles with mean diameter ~18 nm.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="time">Hour 2.5–3+</div>
+        <h4>39-feature extraction suite &amp; comprehensive summary</h4>
+        <p>Added Gabor filters, edge analysis, FFT spectral features, and magnetic domain metrics. Built a cross-feature correlation matrix. Compiled a 4×4 summary figure across all 23 sites with a statistics table.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY CODE -->
+  <div class="content-section reveal">
+    <div class="section-label">Code highlight</div>
+    <h3>Magnetic correlation length via Wiener–Khinchin</h3>
+    <p>The most physically interesting metric: how far magnetic order persists across each site. Computed via FFT-based autocorrelation and threshold crossing on the radial average.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <div class="code-lang">Python</div>
+      </div>
+<pre><span class="cm"># Wiener–Khinchin: autocorrelation from power spectrum</span>
+<span class="kw">def</span> <span class="fn">correlation_length_nm</span>(height_img, pixel_size_nm, smooth_sigma_px=<span class="nm">3</span>,
+                           thresholds=(<span class="nm">0.6</span>, <span class="nm">0.2</span>, <span class="nm">0.1</span>)):
+    I = np.asarray(height_img, dtype=<span class="st">float</span>) - np.nanmean(height_img)
+
+    <span class="cm"># Hanning window → suppress FFT wrap-around</span>
+    wy = np.hanning(I.shape[<span class="nm">0</span>])[:, <span class="kw">None</span>]
+    wx = np.hanning(I.shape[<span class="nm">1</span>])[<span class="kw">None</span>, :]
+    Iw = I * (wy * wx)
+
+    <span class="cm"># Autocorrelation via power spectrum</span>
+    F  = fft2(Iw)
+    C  = fftshift(np.real(ifft2(np.abs(F)**<span class="nm">2</span>)))
+    Cn = C / C[C.shape[<span class="nm">0</span>]//<span class="nm">2</span>, C.shape[<span class="nm">1</span>]//<span class="nm">2</span>]  <span class="cm"># normalize at zero-lag</span>
+
+    <span class="cm"># Radial average → smooth → find threshold crossing</span>
+    r_px, Cr = _radial_profile(Cn)
+    Cr = gaussian_filter1d(Cr, sigma=smooth_sigma_px)
+
+    <span class="kw">for</span> thr <span class="kw">in</span> thresholds:
+        idx = np.where(Cr &lt;= thr)[<span class="nm">0</span>]
+        <span class="kw">if</span> idx.size &gt; <span class="nm">0</span>:
+            <span class="cm"># Linear interpolate for sub-pixel precision</span>
+            i = idx[<span class="nm">0</span>]
+            t = (thr - Cr[i-<span class="nm">1</span>]) / (Cr[i] - Cr[i-<span class="nm">1</span>] + <span class="nm">1e-12</span>)
+            r_star_px = r_px[i-<span class="nm">1</span>] + t * (r_px[i] - r_px[i-<span class="nm">1</span>])
+            <span class="kw">return</span> <span class="fn">float</span>(r_star_px * pixel_size_nm)
+
+    <span class="kw">return float</span>(min(I.shape) * pixel_size_nm)  <span class="cm"># FOV-limited fallback</span></pre>
+    </div>
+    <div class="tag-row">
+      <span class="tag">scipy.fftpack</span><span class="tag">Wiener–Khinchin theorem</span><span class="tag">radial average</span><span class="tag">Gaussian smoothing</span><span class="tag">sub-pixel interpolation</span>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="content-section reveal">
+    <div class="section-label">Results</div>
+    <h3>What the data revealed</h3>
+    <p>The combinatorial library showed clear spatial gradients in multiple physical properties — the kind of variation that makes combinatorial screening useful. Some highlights:</p>
+    <div class="results-grid">
+      <div class="result-stat"><div class="value">9.5 nm</div><div class="label">Max corr. length</div></div>
+      <div class="result-stat"><div class="value">1.0 nm</div><div class="label">Min corr. length</div></div>
+      <div class="result-stat"><div class="value">~18 nm</div><div class="label">Mean particle size</div></div>
+      <div class="result-stat"><div class="value">7,165</div><div class="label">Particles detected</div></div>
+      <div class="result-stat"><div class="value">39</div><div class="label">Features / site</div></div>
+      <div class="result-stat"><div class="value">897</div><div class="label">Total measurements</div></div>
+    </div>
+
+    <div class="fig-block reveal" style="margin-top:28px;">
+      <img src="img_mfm_spatial.png" alt="MFM spatial map: 23-site combinatorial library showing red/blue magnetic phase response tiles at each position across X–Y space">
+      <div class="fig-caption"><strong>Fig. 1 &mdash; MFM spatial map.</strong> Each tile is the raw MFM phase image at its measured position in the combinatorial library. Red = positive magnetic phase shift; blue = negative. The upper-right cluster shows strongly positive (red-dominant) response, while mixed and near-zero sites appear toward the edges — directly revealing spatial composition gradients in magnetic anisotropy.</div>
+    </div>
+
+    <div class="fig-block reveal">
+      <img src="img_fft_analysis.png" alt="Frequency-domain analysis showing FFT power maps, spectral entropy, radial power spectra, and frequency power distribution across all 23 sites">
+      <div class="fig-caption"><strong>Fig. 2 &mdash; Frequency-domain (FFT) analysis.</strong> Six-panel figure: total spectral power (log scale), low- and high-frequency power fractions, dominant spatial frequency, spectral entropy, and radial power spectra overlay. High-frequency power dominates the center of the sample; spectral entropy is higher where magnetic texture is more disordered. Radial power spectra (lower-center) decay consistently as ~1/f² — characteristic of self-similar magnetic domain textures.</div>
+    </div>
+
+    <p style="margin-top:8px;">Magnetic correlation length ranged from 1.0 to 9.5 nm across the sample, with a clear spatial gradient — larger domains in the upper-right region, smaller/more disordered domains toward the lower-left. Surface roughness was largely uniform (Ra ~ 2–5 × 10⁻⁹ m) with outlier sites at the edges. Particle density varied ~2× across the library (167 to 488 per site), with size distributions consistently log-normal.</p>
+    <p>The feature correlation matrix revealed that magnetic RMS signal is largely decoupled from topographic roughness — an important physical result suggesting magnetic ordering is driven by composition rather than surface morphology.</p>
+  </div>
+
+  <!-- WHAT I LEARNED -->
+  <div class="content-section reveal">
+    <div class="section-label">Takeaways</div>
+    <h3>What this taught me</h3>
+    <ul class="insight-list">
+      <li><span class="insight-icon">&#128161;</span><span><strong>Physics knowledge directs LLM output.</strong> Knowing why FFT autocorrelation gives correlation length, or why Gabor filters capture texture anisotropy, lets you prompt for exactly the right approach rather than hoping the model guesses correctly.</span></li>
+      <li><span class="insight-icon">&#9889;</span><span><strong>Modular pipelines scale fast.</strong> Writing a reusable <code style="font-family:var(--font-mono);font-size:14px;background:var(--bg-soft);padding:2px 6px;border-radius:4px;">create_heatmap()</span> helper early on meant adding new features cost almost no visualization code.</span></li>
+      <li><span class="insight-icon">&#128202;</span><span><strong>Normalization matters enormously.</strong> The <code style="font-family:var(--font-mono);font-size:14px;background:var(--bg-soft);padding:2px 6px;border-radius:4px;">TwoSlopeNorm</code> issue on near-zero images (MFM at one site was essentially flat) would have silently broken the whole pipeline. Always visualize first.</span></li>
+      <li><span class="insight-icon">&#127759;</span><span><strong>39 features, 23 sites = real science.</strong> A cross-feature correlation matrix isn't just a visualization — it starts to answer materials science questions about which structural properties co-vary and which are independent.</span></li>
+      <li><span class="insight-icon">&#9874;</span><span><strong>Time-bounded work sharpens priorities.</strong> Under 3-hour pressure, you ship the physically meaningful things first and build toward completeness. That's also how high-impact engineering works.</span></li>
+    </ul>
+  </div>
+
+  <!-- TOOLS & STACK -->
+  <div class="content-section reveal">
+    <div class="section-label">Stack</div>
+    <h3>Tools and libraries</h3>
+    <div class="tag-row" style="margin-top:0">
+      <span class="tag">Python 3.12</span>
+      <span class="tag">NumPy</span>
+      <span class="tag">SciPy</span>
+      <span class="tag">Matplotlib</span>
+      <span class="tag">Scikit-image</span>
+      <span class="tag">Shapely</span>
+      <span class="tag">igor2</span>
+      <span class="tag">pickle</span>
+      <span class="tag">FFT / IFFT</span>
+      <span class="tag">Watershed segmentation</span>
+      <span class="tag">Wiener–Khinchin</span>
+      <span class="tag">Gabor filters</span>
+      <span class="tag">Canny edges</span>
+      <span class="tag">Google Colab</span>
+      <span class="tag">LLM-assisted dev</span>
+    </div>
+    <div class="tag-row" style="margin-top:10px">
+      <span class="tag" style="border-color:rgba(0,113,227,.25);color:var(--accent)">&#128279; Full notebook on GitHub</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       PROJECT 2: ISING MODEL + PySR + PFM — DAY 1
+  ───────────────────────────────────────────── -->
+  <hr class="project-divider">
+
+  <div class="project-divider-inner reveal">
+    <div class="divider-badge-day1">&#9889; Day 1 &middot; 2026</div>
+    <div class="project-meta">
+      <h2>Symbolic Regression for Phase Transitions: Discovering Physics from Monte Carlo Data</h2>
+      <div class="byline">
+        <span class="byline-item">&#128197; March 2026</span>
+        <span class="byline-item">&#9200; ~3 hours</span>
+        <span class="byline-item">&#128201; Ising model + PFM domain switching</span>
+        <span class="byline-item">&#127981; Statistical physics + ML</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="content-section reveal">
+    <div class="section-label">Context</div>
+    <h3>The challenge</h3>
+    <p>Given Monte Carlo simulation data for the 2D Ising model — specifically the specific heat C<sub>v</sub> as a function of exchange coupling J — can an AI discover the underlying physics equation without being told what it is? And separately: given PFM (Piezoresponse Force Microscopy) domain-switching radius data as a function of applied voltage and pulse duration, find the governing equation from data alone.</p>
+    <div class="highlight-banner">
+      <div class="hb-icon">&#129504;</div>
+      <div class="hb-text"><strong>Why this matters:</strong> The Ising model has a known exact solution (Onsager, 1944), but most real materials systems don't. Symbolic regression — using genetic programming to search for compact mathematical expressions — offers a data-driven path to interpretable physics equations. This is exactly how equation discovery in materials science works in practice.</div>
+    </div>
+  </div>
+
+  <!-- APPROACH -->
+  <div class="content-section reveal">
+    <div class="section-label">Approach</div>
+    <h3>PySR: symbolic regression to find equations from data</h3>
+    <p>Used PySR (Python Symbolic Regression), an evolutionary algorithm that searches over mathematical expressions to minimize prediction error subject to a complexity penalty. Multiple candidate equations were generated, ranked by a composite score combining fit quality, physical plausibility, complexity, and extrapolation risk.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#128200;</div>
+        <h4>Ising model C<sub>v</sub> — Monte Carlo data</h4>
+        <p>Specific heat as a function of exchange coupling J, showing the characteristic divergence near the critical point J<sub>c</sub> ≈ 1.18. The peak shape encodes finite-size scaling physics.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#9883;</div>
+        <h4>Multi-objective equation scoring</h4>
+        <p>Equations scored on: PySR fit score, physics plausibility (peak location and decay behavior), simplicity/complexity, and extrapolation risk beyond the training domain.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127775;</div>
+        <h4>LLM-assisted physics assessment</h4>
+        <p>Each candidate equation was assessed by an LLM for physical interpretability — does it produce a single rounded peak? Does it decay correctly at both limits? Are the functional forms physically motivated?</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128301;</div>
+        <h4>PFM domain switching — 2D surface fit</h4>
+        <p>Radius of ferroelectric domain switching as a function of applied voltage U (4–10 V) and pulse duration t (0–2 s). A 3D surface model fitted to the experimental PFM grid data.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYMBOLIC REGRESSION RESULTS -->
+  <div class="content-section reveal">
+    <div class="section-label">Results — Ising model</div>
+    <h3>Candidate equations and their rankings</h3>
+    <p>PySR returned 8 candidate equations of varying complexity. The top-ranked equation (by composite score) achieved R² = 0.9677 on the Monte Carlo C<sub>v</sub> data. Six candidates are shown below, color-coded by assessment: <span style="color:#22c55e;font-weight:600">GOOD</span>, <span style="color:#f59e0b;font-weight:600">QUESTIONABLE</span>, and <span style="color:#ef4444;font-weight:600">BAD</span> (overfit).</p>
+
+    <div class="fig-block reveal">
+      <img src="img_pysr_candidates.png" alt="Six candidate equations from symbolic regression vs Ising model Monte Carlo data, color-coded GOOD/QUESTIONABLE/BAD by assessment score">
+      <div class="fig-caption"><strong>Fig. 3 &mdash; All candidate equations vs. Ising model data.</strong> Each panel shows a PySR candidate equation (data = gray dots, model = colored line) with rank, complexity c, composite score, and quality label. Rank #1 (orange, QUESTIONABLE) and Rank #4 (green, GOOD) both capture the peak shape well. Rank #6 (red, BAD) overfits with two spurious peaks — a common failure mode of unconstrained symbolic regression at high complexity.</div>
+    </div>
+
+    <div class="fig-block reveal">
+      <img src="img_best_equation.png" alt="Best equation deep-dive: fit, residuals, predicted vs actual, and R²=0.9677 summary for PySR symbolic regression on Ising model specific heat">
+      <div class="fig-caption"><strong>Fig. 4 &mdash; Best equation deep-dive.</strong> The top-ranked expression <code style="font-family:var(--font-mono);font-size:12px">(sqrt(Abs(log(Abs(x0)+1) − 0.778)) − 1·0.723)²</code> achieves R² = 0.9677. Residuals (upper right) show systematic structure near the critical point — expected, since the true Onsager singularity is logarithmic and no polynomial/sqrt expression can perfectly capture it. The residual distribution (lower left) is approximately Gaussian. Assessment: QUESTIONABLE due to the nested sqrt(Abs(log(...))) structure — physically functional but not directly interpretable.</div>
+    </div>
+  </div>
+
+  <!-- PFM RESULTS -->
+  <div class="content-section reveal">
+    <div class="section-label">Results — PFM domain switching</div>
+    <h3>3D surface model: domain radius vs. voltage &amp; duration</h3>
+    <p>The PFM domain-switching radius increases strongly with applied voltage and weakly with pulse duration. PySR found a compact governing equation that fits the 2D surface well — consistent with known electrostatic models of ferroelectric domain nucleation where radius scales roughly as U<sup>α</sup> · t<sup>β</sup> with small β.</p>
+
+    <div class="fig-block reveal">
+      <img src="img_3d_surface.png" alt="3D surface model and contour map showing PFM domain switching radius as a function of applied voltage U (4-10V) and pulse duration t (0-2s)">
+      <div class="fig-caption"><strong>Fig. 5 &mdash; PFM domain switching: best model surface vs. data.</strong> Left: 3D surface (model) with experimental data points (white circles). Right: contour map showing radius in nm as a function of voltage U (V) and duration t (s). Radius ranges 60–132 nm. The model shows that voltage is the dominant control parameter — a 2× voltage increase produces ~2× radius increase — while duration contributes a weaker sublinear dependence. This is consistent with thermally-activated nucleation physics.</div>
+    </div>
+  </div>
+
+  <!-- WHAT I LEARNED (Day 1) -->
+  <div class="content-section reveal">
+    <div class="section-label">Takeaways</div>
+    <h3>What this taught me</h3>
+    <ul class="insight-list">
+      <li><span class="insight-icon">&#129504;</span><span><strong>Symbolic regression finds equations, not just fits.</strong> PySR doesn't give you a black-box curve — it gives you a mathematical expression you can examine, interpret, and compare to known physics. That's qualitatively different from fitting a neural network.</span></li>
+      <li><span class="insight-icon">&#9883;</span><span><strong>Complexity penalty is essential.</strong> Without it, the algorithm overfits to noise (see Rank #6: two spurious peaks). The right complexity tradeoff is a physics judgment, not a purely mathematical one.</span></li>
+      <li><span class="insight-icon">&#128301;</span><span><strong>LLM + domain knowledge = better scoring.</strong> The LLM assessment (single peak? correct decay at J→0 and J→∞?) filtered candidates faster than residual analysis alone. Hybrid human-AI scoring is genuinely useful.</span></li>
+      <li><span class="insight-icon">&#9889;</span><span><strong>The best equation isn't always the top scorer.</strong> Rank #1 was "QUESTIONABLE" despite the highest composite score. Rank #4 (tanh-based) was arguably more physically interpretable. Score metrics and physical insight must be used together.</span></li>
+    </ul>
+  </div>
+
+  <!-- TOOLS Day 1 -->
+  <div class="content-section reveal">
+    <div class="section-label">Stack</div>
+    <h3>Tools and libraries</h3>
+    <div class="tag-row" style="margin-top:0">
+      <span class="tag">Python 3.12</span>
+      <span class="tag">PySR</span>
+      <span class="tag">NumPy</span>
+      <span class="tag">Matplotlib</span>
+      <span class="tag">Monte Carlo (Ising model)</span>
+      <span class="tag">Genetic programming</span>
+      <span class="tag">Symbolic regression</span>
+      <span class="tag">PFM domain switching</span>
+      <span class="tag">3D surface fitting</span>
+      <span class="tag">LLM equation assessment</span>
+      <span class="tag">Google Colab</span>
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="more-section reveal">
+    <h3>More hackathon projects</h3>
+    <p>This page grows with every competition. Each entry is a self-contained case study in rapid scientific prototyping.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px">
+      <div class="coming-card">
+        <div class="coming-icon">&#128203;</div>
+        <div>
+          <h4>Day 3 &middot; 2026</h4>
+          <p>Coming soon. Next project will be linked here once complete.</p>
+        </div>
+      </div>
+      <div class="coming-card">
+        <div class="coming-icon">&#128203;</div>
+        <div>
+          <h4>Future entries</h4>
+          <p>Inverse property extraction, real-time simulation automation, and more combinatorial screening &mdash; watch this space.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK CTAs -->
+  <div class="back-cta reveal">
+    <a href="index.html" class="btn btn-primary">&#8592; Back to portfolio</a>
+    <a href="index.html#research" class="btn btn-outline">View research</a>
+    <a href="index.html#publications" class="btn btn-outline">Publications</a>
+    <a href="https://github.com/munireachnannory" class="btn btn-outline" target="_blank" rel="noopener">GitHub &#8599;</a>
+  </div>
+
+</main>
+
+<footer>
+  <span>&copy; 2026 Munireach Nannory &middot; Knoxville, TN</span>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const toggle = document.getElementById('themeToggle');
+function setTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  toggle.textContent = dark ? '\u2600' : '\u263D';
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+const saved = localStorage.getItem('theme');
+setTheme(saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+toggle.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark'));
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => { e.target.classList.add('visible'); obs.unobserve(e.target); }, i * 40);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
