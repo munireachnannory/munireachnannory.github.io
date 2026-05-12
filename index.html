@@ -1184,6 +1184,7 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#publications">Publications</a></li>
     <li><a href="#talks">Talks</a></li>
+    <li><a href="#hackathon">Hackathon</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#awards">Awards</a></li>
     <li><a href="#about">About</a></li>
@@ -1191,7 +1192,7 @@
   </ul>
   <div class="nav-actions">
     <a href="#contact" class="btn btn-secondary">Contact</a>
-    <a href="Munireach_Nannory_Resume.docx" class="btn btn-primary" download>Resume</a>
+    <a href="Munireach_Nannory_Resume.pdf" class="btn btn-primary" download>Resume</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☽</button>
     <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
@@ -1209,14 +1210,14 @@
       <div class="hero-ctas">
         <a href="#agents" class="btn btn-gradient btn-lg">See the agent system &rarr;</a>
         <a href="#research" class="btn btn-secondary btn-lg">View research</a>
-        <a href="Munireach_Nannory_Resume.docx" class="btn btn-outline btn-lg" download>Resume</a>
+        <a href="Munireach_Nannory_Resume.pdf" class="btn btn-outline btn-lg" download>Resume</a>
       </div>
     </div>
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-orbit"></div>
       <div class="hero-orbit-2"></div>
       <div class="hero-avatar">
-        <img src="img_profile.png" alt="Munireach Nannory">
+        <img src="./images/profile.png" alt="Munireach Nannory">
       </div>
     </div>
   </div>
@@ -1315,13 +1316,6 @@
     <h2 class="agents-headline reveal" id="agents-title">An <em><span class="gradient-text">autonomous multi-agent</span></em> system that runs a nanoindenter end-to-end.</h2>
     <p class="agents-sub reveal">A scientist hands the system a goal in plain English. LLM agents plan the experiment, choose where to indent, drive the machine through GUI automation, monitor for safety, interpret results, and iterate &mdash; with Bayesian optimization in the loop. To my knowledge, no one has put autonomous agents in direct control of an iMicro nanoindenter before.</p>
 
-    <div class="agents-terminal reveal" aria-hidden="true">
-      <div class="term-bar">
-        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
-        <span class="term-title">orchestrator &mdash; live run</span>
-      </div>
-      <pre class="term-body"><span class="term-line"><span class="term-prompt">scientist&gt;</span> <span class="term-str">"map hardness across the Co-Fe-Ni composition library"</span></span><span class="term-line"><span class="term-out">[orchestrator]</span> goal received &mdash; decomposing…</span><span class="term-line"><span class="term-out">[image-analysis]</span> segmenting SEM &middot; <span class="term-key">86 grains</span> &middot; <span class="term-key">3 phases</span></span><span class="term-line"><span class="term-out">[planner]</span> budget=<span class="term-key">120</span> &middot; depth=<span class="term-key">450 nm</span> &middot; method=<span class="term-key">XPM</span></span><span class="term-line"><span class="term-out">[bayes-opt]</span> next site &rarr; <span class="term-key">(x=412.7μm, y=288.1μm)</span> &middot; UCB=<span class="term-key">0.81</span></span><span class="term-line"><span class="term-out">[machine]</span> move_stage&hellip; start_test&hellip; export… <span class="term-ok">ok</span></span><span class="term-line"><span class="term-out">[interpreter]</span> H=<span class="term-key">6.42 GPa</span> &middot; E=<span class="term-key">182 GPa</span> &middot; flagged=<span class="term-key">0</span></span><span class="term-line"><span class="term-out">[safety]</span> force/disp within limits &middot; <span class="term-ok">nominal</span></span><span class="term-line"><span class="term-warn">[orchestrator]</span> iteration <span class="term-key">37 / 120</span> &middot; GP &sigma; falling…<span class="term-cursor"></span></span></pre>
-    </div>
 
     <div class="agents-diagram reveal">
       <img src="img_agent_system.png" alt="Architecture diagram of the autonomous multi-agent nanoindentation system showing Orchestrator, Image Analysis, Experiment Planner, Safety Monitor, Bayesian Optimizer, Machine Controller, and Results Interpreter agents communicating with a Flask HTTP server that drives the iMicro nanoindenter via GUI automation." loading="lazy" onerror="this.outerHTML=\'<div class=&quot;agents-diagram-fallback&quot;>system_architecture.png &middot; drop into Current Website/ folder<br><span style=&quot;color:var(--accent)&quot;>img_agent_system.png</span></div>\'">
@@ -1409,25 +1403,25 @@
         <div class="card-icon">🔬</div>
         <h3>Substrate-effect correction</h3>
         <p>Quantifying and correcting substrate influence on measured thin-film properties, including depth-dependent error maps and practical indentation depth guidance.</p>
-            <a href="research-substrate-2.html" class="card-explore">Explore research</a>
+            <a href="./pages/research-substrate-2.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">⚙</div>
         <h3>FEM automation at scale</h3>
         <p>Python-driven Abaqus/CAE pipelines for high-throughput parametric studies with elastic-plastic material models, automated post-processing, and reproducible V&V workflows.</p>
-            <a href="research-fem-2.html" class="card-explore">Explore research</a>
+            <a href="./pages/research-fem-2.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">🧠</div>
         <h3>ML for inverse property extraction</h3>
         <p>Neural networks and deep kernel learning to map load-depth curves back to intrinsic film properties. Surrogate modeling and active learning to improve data efficiency for high-cost simulations.</p>
-            <a href="research-ml.html" class="card-explore">Explore research</a>
+            <a href="./pages/research-ml.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">🔭</div>
         <h3>Microscopy-informed tip calibration</h3>
         <p>Measured spherical tip profiles from microscopy integrated directly into Abaqus 2D/3D contact models, reducing experiment-simulation mismatch from ~20% to below 5%.</p>
-            <a href="research-tip-2.html" class="card-explore">Explore research</a>
+            <a href="./pages/research-tip-2.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">🤖</div>
@@ -1527,7 +1521,7 @@
             <span class="hack-chip">LLM-assisted dev</span>
           </div>
           <div class="hack-cta-row">
-            <a href="hackathon-2.html" class="hack-explore-btn">Explore full project</a>
+            <a href="./pages/hackathon-2.html" class="hack-explore-btn">Explore full project</a>
             <span class="hack-date-note">March 3, 2026 · ~3 hours</span>
           </div>
         </div>
@@ -1850,9 +1844,9 @@
     <div class="cv-download-box reveal">
       <div>
         <h3>Download full CV</h3>
-        <p>DOCX · Last updated 2026</p>
+        <p>PDF · Last updated 2026</p>
       </div>
-      <a href="Munireach_Nannory_Resume.docx" class="btn btn-primary btn-lg" download>↓ Download CV (DOCX)</a>
+      <a href="Munireach_Nannory_Resume.pdf" class="btn btn-primary btn-lg" download>↓ Download CV (PDF)</a>
     </div>
     <div class="cv-snapshot reveal">
       <div class="cv-section">
@@ -1929,9 +1923,10 @@
     <a href="#research">Research</a>
     <a href="#publications">Publications</a>
     <a href="#talks">Talks</a>
+    <a href="#hackathon">Hackathon</a>
     <a href="#awards">Awards</a>
     <a href="#contact">Contact</a>
-    <a href="Munireach_Nannory_Resume.docx" download>CV</a>
+    <a href="Munireach_Nannory_Resume.pdf" download>CV</a>
   </nav>
 </footer>
 
@@ -2051,4 +2046,12 @@
 
 <!-- LIGHTBOX -->
 <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <button class="lightbox-close" id="lbClose" aria-label="Close">✕<
+  <button class="lightbox-close" id="lbClose" aria-label="Close">&#10005;</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next image">&#8250;</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lightbox-caption" id="lbCaption"></div>
+</div>
+
+</body>
+</html>
