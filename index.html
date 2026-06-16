@@ -1156,6 +1156,36 @@
   }
   .agents-note { font-size: 13px; color: var(--text-tertiary); font-style: italic; }
 
+  /* =============== SIMULATION SHOWCASE =============== */
+  #simulations { background: var(--bg-soft); }
+  .sim-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .sim-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+  }
+  .sim-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+  .sim-video { position: relative; background: #fafafa; border-bottom: 1px solid var(--border); }
+  .sim-video video { width: 100%; height: auto; display: block; }
+  .sim-solver {
+    position: absolute; top: 12px; right: 12px;
+    font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+    letter-spacing: .05em;
+    background: rgba(9,9,11,.72); color: #fff;
+    padding: 4px 10px; border-radius: 100px;
+    backdrop-filter: blur(6px);
+  }
+  .sim-body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 8px; }
+  .sim-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+  .sim-body h3 { font-size: 17px; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
+  .sim-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .sim-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  @media (max-width: 760px) { .sim-grid { grid-template-columns: 1fr; } }
+
   /* =============== RESPONSIVE =============== */
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -1184,6 +1214,7 @@
   <a href="#home" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span>Munireach Nannory</a>
   <ul class="nav-links">
     <li><a href="#research">Research</a></li>
+    <li><a href="#simulations">Simulations</a></li>
     <li><a href="#agents">AI Agents</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#publications">Publications</a></li>
@@ -1238,6 +1269,100 @@
     <div class="strip-pill"><span class="pill-icon">🎓</span> NSF-funded PhD Research Assistant</div>
   </div>
 </div>
+
+<!-- SKILLS -->
+<!-- SIMULATION SHOWCASE -->
+<section id="simulations" aria-labelledby="simulations-title">
+  <div class="section-inner">
+    <span class="eyebrow reveal eyebrow-accent">Simulation · FEA</span>
+    <h2 class="section-title reveal" id="simulations-title">Finite element simulations <em class="gradient-text" style="font-family:var(--font-serif);font-style:normal;">in motion</em></h2>
+    <p class="section-sub reveal">A selection of nonlinear FEA models spanning contact mechanics, coupled thermal&ndash;mechanical analysis, metal forming, and crashworthiness &mdash; built in Abaqus/Standard and Abaqus/Explicit.</p>
+
+    <div class="sim-grid">
+
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Standard</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="3D contact simulation of an indenter tip pressed into a specimen">
+            <source src="Actual%20Tip%203D%20Modeling.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption class="sim-body">
+          <span class="sim-num">01 / Contact mechanics</span>
+          <h3>Instrumented Indenter Tip &mdash; 3D Contact</h3>
+          <p>3D contact model of an as-measured indenter tip pressed into a bulk specimen. Reproduces the real tip geometry to resolve near-surface von Mises stress fields &mdash; underpinning my nanoindentation tip-calibration research.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Standard</span>
+            <span class="tag">Contact</span>
+            <span class="tag">Von Mises</span>
+            <span class="tag">Nanoindentation</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Standard</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="Coupled thermal-mechanical simulation of a bell nozzle">
+            <source src="nozzle%20video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption class="sim-body">
+          <span class="sim-num">02 / Thermal&ndash;mechanical</span>
+          <h3>Bell Nozzle &mdash; Coupled Thermal&ndash;Mechanical</h3>
+          <p>Full 360&deg; rocket bell nozzle with dual ceramic thermal-barrier coatings over a steel substrate. Sequentially coupled thermal&ndash;mechanical analysis resolving the transient temperature field (NT11) and induced thermal stresses.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Standard</span>
+            <span class="tag">Thermal&ndash;Mechanical</span>
+            <span class="tag">Coatings (TBC)</span>
+            <span class="tag">NT11</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Explicit</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="3D cold rolling process simulation with two rollers">
+            <source src="Cold%20Rolling.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption class="sim-body">
+          <span class="sim-num">03 / Metal forming</span>
+          <h3>3D Cold Rolling &mdash; Two-Roller Process</h3>
+          <p>Actual-size two-roller cold-rolling model of an alloy billet. Captures roll-bite contact, large plastic deformation, and von Mises stress evolution during thickness reduction.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Explicit</span>
+            <span class="tag">Metal Forming</span>
+            <span class="tag">Plasticity</span>
+            <span class="tag">Contact</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Explicit</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="Blended wing body aircraft crash impact simulation">
+            <source src="Crash%20Analyze.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption class="sim-body">
+          <span class="sim-num">04 / Crashworthiness</span>
+          <h3>Blended-Wing-Body &mdash; Crash Impact</h3>
+          <p>Explicit dynamic ground-impact analysis of a blended-wing-body (BWB) airframe. Models large-deformation structural collapse and transient von Mises stress propagation through the impact event.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Explicit</span>
+            <span class="tag">Crashworthiness</span>
+            <span class="tag">Impact Dynamics</span>
+            <span class="tag">Von Mises</span>
+          </div>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
 
 <!-- SKILLS -->
 <section id="skills" aria-labelledby="skills-title">
