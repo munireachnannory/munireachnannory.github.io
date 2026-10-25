@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Munireach Nannory | PhD Candidate | FEM + ML + Autonomous Agents for Nanoindentation</title>
-<meta name="description" content="PhD candidate at the University of Tennessee, Knoxville building FEM, machine learning, and LLM agent systems for autonomous thin-film nanoindentation and substrate-effect correction.">
-<meta property="og:title" content="Munireach Nannory | PhD Candidate | FEM + ML + Autonomous Agents">
-<meta property="og:description" content="CAE-focused PhD candidate at UTK building automated FEM, machine learning, and autonomous multi-agent systems for reliable thin-film nanoindentation.">
+<meta name="description" content="PhD candidate at the University of Tennessee, Knoxville building governed LLM multi-agent systems that run a commercial nanoindenter, plus FEM and machine learning for shallow-depth property identification. Published in J. Mater. Res. Technol. and Materials &amp; Design (2026).">
+<meta property="og:title" content="Munireach Nannory | PhD Candidate | FEM + ML + Autonomous Agents for Nanoindentation">
+<meta property="og:description" content="PhD candidate at the University of Tennessee, Knoxville building governed LLM multi-agent systems that run a commercial nanoindenter, plus FEM and machine learning for shallow-depth property identification. Published in J. Mater. Res. Technol. and Materials &amp; Design (2026).">
 <meta property="og:image" content="img_agent_system.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%234f46e5%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-family=%22-apple-system,sans-serif%22 font-size=%2256%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E">
@@ -1201,6 +1201,212 @@
     .award-item { grid-template-columns: 56px 1fr; gap: 16px; padding: 14px 18px; }
   }
 
+
+  /* =============== NEWS STRIP =============== */
+  #news { padding: 56px var(--gutter) 8px; background: var(--bg); }
+  .news-inner { max-width: var(--max); margin: 0 auto; }
+  .news-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .news-title { font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--text-primary); }
+  .news-all { font-family: var(--font-mono); font-size: 12px; color: var(--accent); text-decoration: none; }
+  .news-all:hover { text-decoration: underline; }
+  .news-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .news-item {
+    display: flex; flex-direction: column; gap: 8px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+    text-decoration: none; color: inherit;
+  }
+  a.news-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+  .news-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .news-date { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); letter-spacing: .04em; text-transform: uppercase; }
+  .news-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+  .news-tag.pub { background: rgba(22,163,74,.1); color: var(--status-live); border: 1px solid rgba(22,163,74,.2); }
+  .news-tag.prep { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-ring); }
+  [data-theme="dark"] .news-tag.pub { color: #4ade80; background: rgba(74,222,128,.1); border-color: rgba(74,222,128,.2); }
+  .news-text { font-size: 14px; line-height: 1.55; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); font-weight: 600; }
+
+  /* =============== AGENTS: run flow + governance =============== */
+  .agents-flow {
+    list-style: none; counter-reset: step;
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px;
+    margin-bottom: 28px;
+  }
+  .agents-flow li {
+    counter-increment: step; position: relative;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 16px 16px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .agents-flow li::before {
+    content: counter(step, decimal-leading-zero);
+    display: block; font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    color: var(--accent); letter-spacing: .08em; margin-bottom: 8px;
+  }
+  .agents-flow li:not(:last-child)::after {
+    content: "\2192"; position: absolute; right: -9px; top: 50%; transform: translateY(-50%);
+    width: 18px; height: 18px; border-radius: 50%; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--accent); background: var(--bg-card); border: 1px solid var(--accent-ring);
+  }
+  .agents-flow h3 { font-size: 13.5px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); letter-spacing: -.01em; }
+  .agents-flow p { font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); }
+  .agents-section-label {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-tertiary); margin: 4px 0 12px;
+  }
+  .agents-governance {
+    display: grid; grid-template-columns: 1.1fr 2fr; gap: 28px; align-items: center;
+    background: var(--bg-card); border: 1px solid var(--accent-ring);
+    border-radius: var(--r-xl); padding: 28px 30px; margin-bottom: 36px;
+    box-shadow: var(--shadow-sm);
+  }
+  .agents-governance h3 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 8px; color: var(--text-primary); }
+  .agents-governance > div > p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+  .gov-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 22px; }
+  .gov-list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+  .gov-list li strong { color: var(--text-primary); font-weight: 600; display: block; }
+  .gov-check {
+    width: 22px; height: 22px; border-radius: 7px; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700;
+  }
+  a.agents-status-pill { text-decoration: none; }
+  a.agents-status-pill:hover { filter: brightness(.95); }
+  .nav-links a, .nav-logo { white-space: nowrap; }
+  @media (min-width: 1025px) { .nav-links li.nav-mobile-only { display: none; } }
+  @media (max-width: 1180px) and (min-width: 1025px) {
+    .nav-links a { padding: 7px 9px; }
+    .nav-actions .btn-secondary { display: none; }
+  }
+  @media (max-width: 1100px) {
+    .agents-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .agents-flow li:nth-child(3)::after { display: none; }
+    .agents-governance { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .agents-flow { grid-template-columns: 1fr 1fr; }
+    .agents-flow li::after { display: none !important; }
+    .gov-list { grid-template-columns: 1fr; }
+    .agents-governance { padding: 22px; }
+    #news { padding-top: 40px; }
+  }
+
+
+  /* =============== MULTI-PAGE ADDITIONS =============== */
+  .section-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 40px; }
+  .section-cta-note { font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); }
+  .page-crumb {
+    max-width: var(--max); margin: 0 auto;
+    padding: 96px var(--gutter) 0;
+    font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);
+    box-sizing: content-box;
+  }
+  .page-crumb a { color: var(--accent); text-decoration: none; }
+  .page-crumb a:hover { text-decoration: underline; }
+  body.subpage main > section:first-of-type { padding-top: 36px; }
+  .more-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .more-card {
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 26px 24px;
+    box-shadow: var(--shadow-sm); text-decoration: none; color: inherit;
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+  }
+  .more-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+  .more-card .more-icon {
+    width: 38px; height: 38px; border-radius: 10px; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft); border: 1px solid var(--accent-ring);
+  }
+  .more-card h3 { font-size: 16px; font-weight: 600; letter-spacing: -.015em; color: var(--text-primary); }
+  .more-card p { font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); flex: 1; }
+  .more-card .card-explore { margin-top: 4px; }
+  .page-next {
+    padding: 64px var(--gutter); background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+  }
+  .page-next-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .page-next h2 { font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--text-primary); }
+  .page-next p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+  .page-next-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  @media (max-width: 600px) { .page-crumb { padding-top: 84px; } }
+
+
+  /* =============== HOMEPAGE HERO (load-depth curve) =============== */
+  #home.hero2 { min-height: auto; display: block; padding: 132px var(--gutter) 72px; }
+  .hero2-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); gap: 56px; align-items: center; }
+  .hero2-id { display: flex; align-items: center; gap: 14px; margin-bottom: 34px; }
+  .hero2-id img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 1px solid var(--border); }
+  .hero2-name { font-size: 16px; font-weight: 600; letter-spacing: -.01em; color: var(--text-primary); }
+  .hero2-role { font-size: 13.5px; line-height: 1.45; color: var(--text-secondary); }
+  .hero2-headline {
+    font-size: clamp(36px, 4vw, 58px); font-weight: 600; line-height: 1.05;
+    letter-spacing: -.038em; color: var(--text-primary); max-width: 19ch; margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .hero2-sub { font-size: 17.5px; line-height: 1.65; color: var(--text-secondary); max-width: 54ch; margin-bottom: 32px; }
+  .hero2-ctas { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .hero2-textlink { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--border-strong); margin-left: 6px; }
+  .hero2-textlink:hover { color: var(--text-primary); }
+
+  .hero2-plot { margin: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 22px 22px 18px; box-shadow: var(--shadow-lg); }
+  .hero2-plot svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--font); }
+  .hero2-plot figcaption { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); padding: 10px 6px 2px; border-top: 1px solid var(--border); margin-top: 6px; }
+  .hero2-plot figcaption a { color: var(--accent); text-decoration: none; font-weight: 500; white-space: nowrap; }
+  .hero2-plot figcaption a:hover { text-decoration: underline; }
+  .h2-grid line { stroke: var(--border); stroke-width: 1; }
+  .h2-axes line { stroke: var(--text-tertiary); stroke-width: 1.25; }
+  .h2-axis-label { font-size: 13px; fill: var(--text-tertiary); }
+  .h2-curve { fill: none; stroke-width: 3.25; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .h2-load { stroke: var(--text-primary); }
+  .h2-unload { stroke: var(--accent); }
+  .h2-tangent { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 5 5; }
+  .h2-dot { fill: var(--bg-card); stroke: var(--accent); stroke-width: 2.5; }
+  .h2-note-title { font-size: 14px; font-weight: 600; fill: var(--text-primary); }
+  .h2-note-body { font-size: 12.5px; fill: var(--text-secondary); }
+  .h2-formula { font-family: var(--font-serif); font-size: 26px; fill: var(--text-primary); }
+
+  /* One orchestrated moment: the test runs once when the page opens */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero2 .h2-load { stroke-dashoffset: 1; animation: h2draw 1.5s cubic-bezier(.45,.05,.35,1) .25s forwards; }
+    .hero2 .h2-unload { stroke-dashoffset: 1; animation: h2draw .9s cubic-bezier(.3,.1,.3,1) 1.75s forwards; }
+    .hero2 .h2-band { opacity: 0; animation: h2fade .6s ease .3s forwards; }
+    .hero2 .h2-note { opacity: 0; animation: h2fade .5s ease forwards; }
+    .hero2 .n1 { animation-delay: .7s; }
+    .hero2 .n2 { animation-delay: 1.7s; }
+    .hero2 .n3 { animation-delay: 2.5s; }
+    .hero2 .n4 { animation-delay: 2.75s; }
+    .hero2 .n5 { animation-delay: 3s; }
+  }
+  @keyframes h2draw { to { stroke-dashoffset: 0; } }
+  @keyframes h2fade { to { opacity: 1; } }
+
+  @media (max-width: 1024px) {
+    .hero2-inner { grid-template-columns: 1fr; gap: 44px; }
+    .hero2-headline { max-width: 22ch; }
+  }
+  @media (max-width: 600px) {
+    #home.hero2 { padding: 100px var(--gutter) 48px; }
+    .hero2-id { margin-bottom: 26px; }
+    .hero2-sub { font-size: 16px; }
+    .hero2-plot { padding: 14px 12px 12px; border-radius: var(--r-lg); }
+    .hero2-textlink { margin-left: 0; }
+    .h2-note-title { font-size: 21px; }
+    .h2-note-body, .h2-axis-label { font-size: 18px; }
+    .n3 .h2-note-body { display: none; }
+    .n1 .h2-note-body { font-size: 17px; }
+  }
+  @media (max-width: 600px) {
+    .nav-actions .btn-secondary { display: none; }
+    .nav-actions { gap: 6px; }
+    .nav-actions .btn-primary { padding: 8px 14px; }
+  }
+  @media (max-width: 1024px) { .nav-links a { display: block; font-size: 16px; padding: 11px 12px; } .nav-links a.is-active::after { display: none; } }
+  .btn:focus-visible, .hero2-textlink:focus-visible, .more-card:focus-visible, .news-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
     body::after { animation: none; }
@@ -1211,19 +1417,15 @@
 
 <!-- NAV -->
 <nav class="site-nav" role="navigation" aria-label="Main navigation">
-  <a href="#home" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span>Munireach Nannory</a>
+  <a href="index.html" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span>Munireach Nannory</a>
   <ul class="nav-links">
-    <li><a href="#research">Research</a></li>
-    <li><a href="#simulations">Simulations</a></li>
-    <li><a href="#agents">AI Agents</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#talks">Talks</a></li>
-    <li><a href="#hackathon">Hackathon</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#awards">Awards</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="agents.html">AI Agents</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="simulations.html">Simulations</a></li>
+    <li><a href="recognition.html">Awards</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="nav-mobile-only"><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-actions">
     <a href="#contact" class="btn btn-secondary">Contact</a>
@@ -1233,28 +1435,67 @@
   </div>
 </nav>
 
+<main>
 <!-- HERO -->
-<section id="home" aria-labelledby="hero-headline">
-  <div class="hero-inner">
-    <div>
-      <span class="hero-label">PhD Candidate &middot; CAE / FEA &middot; FEM + ML + Agents</span>
-      <h1 class="hero-headline" id="hero-headline">High-fidelity simulation, machine learning, and <em><span class="gradient-text">autonomous agents</span></em> for smarter engineering decisions.</h1>
-      <p class="hero-sub">CAE-focused PhD candidate with ~3 years of experience building nonlinear finite element models in Abaqus/CAE, including contact and elastic-plastic material response. I design automation-first simulation workflows in Python and MATLAB on Linux and HPC clusters.</p>
-      <p class="hero-affil">Civil &amp; Environmental Engineering · University of Tennessee, Knoxville</p>
-      <p class="hero-now"><span class="now-dot" aria-hidden="true"></span><span class="now-label">Currently</span> Building an autonomous multi-agent system that drives the iMicro nanoindenter end-to-end &mdash; LLM orchestration + Bayesian optimization + GUI automation.</p>
-      <div class="hero-ctas">
-        <a href="#agents" class="btn btn-gradient btn-lg">See the agent system &rarr;</a>
-        <a href="#research" class="btn btn-secondary btn-lg">View research</a>
-        <a href="resume.pdf" class="btn btn-outline btn-lg" download>Resume</a>
+<section id="home" class="hero2" aria-labelledby="hero-headline">
+  <div class="hero2-inner">
+    <div class="hero2-text">
+      <div class="hero2-id">
+        <img src="img_profile.png" alt="Portrait of Munireach Nannory" width="56" height="56" onerror="this.style.display='none'">
+        <div>
+          <p class="hero2-name">Munireach Nannory</p>
+          <p class="hero2-role">PhD candidate, Civil &amp; Environmental Engineering<br>University of Tennessee, Knoxville</p>
+        </div>
+      </div>
+      <h1 class="hero2-headline" id="hero-headline">Simulation, machine learning, and AI agents for measuring materials at the nanoscale.</h1>
+      <p class="hero2-sub">I build nonlinear finite element models in Abaqus, train models that read material properties from indentation data, and develop governed AI agents that run a commercial nanoindenter on their own.</p>
+      <div class="hero2-ctas">
+        <a href="agents.html" class="btn btn-primary btn-lg">See the agent system</a>
+        <a href="publications.html" class="btn btn-secondary btn-lg">Read my publications</a>
+        <a href="resume.pdf" class="hero2-textlink" download>Download resume (PDF)</a>
       </div>
     </div>
-    <div class="hero-visual" aria-hidden="true">
-      <div class="hero-orbit"></div>
-      <div class="hero-orbit-2"></div>
-      <div class="hero-avatar">
-        <img src="img_profile.png" alt="Nannory Munireach profile photo" width="320" height="320" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:13px;color:#a1a1aa;text-align:center;padding:16px;&quot;>img_profile.png not found</div>';">
-      </div>
-    </div>
+
+    <figure class="hero2-plot" aria-labelledby="hero-plot-cap">
+      <svg viewBox="0 0 640 420" role="img" aria-label="Load versus depth curve from a nanoindentation test, with the shallow-depth region, maximum load, unloading slope, and residual depth labeled.">
+        <defs>
+          <linearGradient id="h2band" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0" stop-color="var(--accent)" stop-opacity=".16"/>
+            <stop offset="1" stop-color="var(--accent)" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g class="h2-grid"><line x1="130" y1="40" x2="130" y2="360"/><line x1="190" y1="40" x2="190" y2="360"/><line x1="250" y1="40" x2="250" y2="360"/><line x1="310" y1="40" x2="310" y2="360"/><line x1="370" y1="40" x2="370" y2="360"/><line x1="430" y1="40" x2="430" y2="360"/><line x1="490" y1="40" x2="490" y2="360"/><line x1="550" y1="40" x2="550" y2="360"/><line x1="70" y1="60" x2="600" y2="60"/><line x1="70" y1="120" x2="600" y2="120"/><line x1="70" y1="180" x2="600" y2="180"/><line x1="70" y1="240" x2="600" y2="240"/><line x1="70" y1="300" x2="600" y2="300"/></g>
+        <rect class="h2-band" x="70" y="40" width="96" height="320" fill="url(#h2band)"/>
+        <g class="h2-axes">
+          <line x1="70" y1="360" x2="604" y2="360"/>
+          <line x1="70" y1="360" x2="70" y2="34"/>
+        </g>
+        <text class="h2-axis-label" x="604" y="388" text-anchor="end">Depth, h</text>
+        <text class="h2-axis-label" x="78" y="30">Load, P</text>
+
+        <path class="h2-curve h2-load" d="M70.0,360.0 L80.0,359.8 L90.0,359.3 L100.0,358.4 L110.0,357.1 L120.0,355.5 L130.0,353.5 L140.0,351.1 L150.0,348.4 L160.0,345.3 L170.0,341.9 L180.0,338.1 L190.0,333.9 L200.0,329.4 L210.0,324.5 L220.0,319.2 L230.0,313.6 L240.0,307.6 L250.0,301.3 L260.0,294.6 L270.0,287.5 L280.0,280.1 L290.0,272.3 L300.0,264.1 L310.0,255.6 L320.0,246.7 L330.0,237.5 L340.0,227.9 L350.0,217.9 L360.0,207.6 L370.0,196.9 L380.0,185.8 L390.0,174.4 L400.0,162.6 L410.0,150.5 L420.0,138.0 L430.0,125.1 L440.0,111.9 L450.0,98.3 L460.0,84.3 L470.0,70.0 C 478.0,70.0 488.0,70.0 495,70.0" pathLength="1"/>
+        <path class="h2-curve h2-unload" d="M495.0,70.0 L490.9,80.8 L486.8,91.5 L482.6,102.0 L478.5,112.4 L474.4,122.6 L470.2,132.7 L466.1,142.7 L462.0,152.5 L457.9,162.1 L453.8,171.6 L449.6,181.0 L445.5,190.2 L441.4,199.2 L437.2,208.0 L433.1,216.7 L429.0,225.2 L424.9,233.6 L420.8,241.7 L416.6,249.7 L412.5,257.5 L408.4,265.1 L404.2,272.5 L400.1,279.7 L396.0,286.6 L391.9,293.4 L387.8,300.0 L383.6,306.3 L379.5,312.3 L375.4,318.2 L371.2,323.8 L367.1,329.0 L363.0,334.1 L358.9,338.8 L354.8,343.2 L350.6,347.2 L346.5,350.8 L342.4,354.0 L338.2,356.8 L334.1,358.9 L330.0,360.0" pathLength="1"/>
+        <line class="h2-tangent h2-note n3" x1="420" y1="268" x2="506" y2="40"/>
+
+        <g class="h2-note n1">
+          <text class="h2-note-title" x="82" y="70">Shallow depths</text>
+          <text class="h2-note-body" x="82" y="88">Real tip shape matters most here</text>
+        </g>
+        <g class="h2-note n2">
+          <circle cx="495" cy="70" r="5" class="h2-dot"/>
+          <text class="h2-note-title" x="516" y="74">P<tspan baseline-shift="sub" font-size="10">max</tspan></text>
+        </g>
+        <g class="h2-note n3">
+          <text class="h2-note-title" x="462" y="214">Unloading slope</text>
+          <text class="h2-note-body" x="462" y="232">gives elastic modulus E</text>
+        </g>
+        <g class="h2-note n4">
+          <circle cx="330" cy="360" r="4.5" class="h2-dot"/>
+          <text class="h2-note-body" x="330" y="388" text-anchor="middle">Residual depth h<tspan baseline-shift="sub" font-size="9">f</tspan></text>
+        </g>
+      </svg>
+      <figcaption id="hero-plot-cap">One nanoindentation test. My research makes each part of this curve faster to measure and easier to trust. <a href="https://doi.org/10.1016/j.jmrt.2026.10.191" target="_blank" rel="noopener">See the 2026 JMR&amp;T paper</a></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -1270,308 +1511,55 @@
   </div>
 </div>
 
-<!-- SKILLS -->
-<!-- SIMULATION SHOWCASE -->
-<section id="simulations" aria-labelledby="simulations-title">
-  <div class="section-inner">
-    <span class="eyebrow reveal eyebrow-accent">Simulation · FEA</span>
-    <h2 class="section-title reveal" id="simulations-title">Finite element simulations <em class="gradient-text" style="font-family:var(--font-serif);font-style:normal;">in motion</em></h2>
-    <p class="section-sub reveal">A selection of nonlinear FEA models spanning contact mechanics, coupled thermal&ndash;mechanical analysis, metal forming, and crashworthiness &mdash; built in Abaqus/Standard and Abaqus/Explicit.</p>
-
-    <div class="sim-grid">
-
-      <figure class="sim-card reveal">
-        <div class="sim-video">
-          <span class="sim-solver">Abaqus/Standard</span>
-          <video autoplay loop muted playsinline preload="metadata" aria-label="3D contact simulation of an indenter tip pressed into a specimen">
-            <source src="Actual%20Tip%203D%20Modeling.mp4" type="video/mp4">
-          </video>
-        </div>
-        <figcaption class="sim-body">
-          <span class="sim-num">01 / Contact mechanics</span>
-          <h3>Instrumented Indenter Tip &mdash; 3D Contact</h3>
-          <p>3D contact model of an as-measured indenter tip pressed into a bulk specimen. Reproduces the real tip geometry to resolve near-surface von Mises stress fields &mdash; underpinning my nanoindentation tip-calibration research.</p>
-          <div class="sim-tags">
-            <span class="tag">Abaqus/Standard</span>
-            <span class="tag">Contact</span>
-            <span class="tag">Von Mises</span>
-            <span class="tag">Nanoindentation</span>
-          </div>
-        </figcaption>
-      </figure>
-
-      <figure class="sim-card reveal">
-        <div class="sim-video">
-          <span class="sim-solver">Abaqus/Standard</span>
-          <video autoplay loop muted playsinline preload="metadata" aria-label="Coupled thermal-mechanical simulation of a bell nozzle">
-            <source src="nozzle%20video.mp4" type="video/mp4">
-          </video>
-        </div>
-        <figcaption class="sim-body">
-          <span class="sim-num">02 / Thermal&ndash;mechanical</span>
-          <h3>Bell Nozzle &mdash; Coupled Thermal&ndash;Mechanical</h3>
-          <p>Full 360&deg; rocket bell nozzle with dual ceramic thermal-barrier coatings over a steel substrate. Sequentially coupled thermal&ndash;mechanical analysis resolving the transient temperature field (NT11) and induced thermal stresses.</p>
-          <div class="sim-tags">
-            <span class="tag">Abaqus/Standard</span>
-            <span class="tag">Thermal&ndash;Mechanical</span>
-            <span class="tag">Coatings (TBC)</span>
-            <span class="tag">NT11</span>
-          </div>
-        </figcaption>
-      </figure>
-
-      <figure class="sim-card reveal">
-        <div class="sim-video">
-          <span class="sim-solver">Abaqus/Explicit</span>
-          <video autoplay loop muted playsinline preload="metadata" aria-label="3D cold rolling process simulation with two rollers">
-            <source src="Cold%20Rolling.mp4" type="video/mp4">
-          </video>
-        </div>
-        <figcaption class="sim-body">
-          <span class="sim-num">03 / Metal forming</span>
-          <h3>3D Cold Rolling &mdash; Two-Roller Process</h3>
-          <p>Actual-size two-roller cold-rolling model of an alloy billet. Captures roll-bite contact, large plastic deformation, and von Mises stress evolution during thickness reduction.</p>
-          <div class="sim-tags">
-            <span class="tag">Abaqus/Explicit</span>
-            <span class="tag">Metal Forming</span>
-            <span class="tag">Plasticity</span>
-            <span class="tag">Contact</span>
-          </div>
-        </figcaption>
-      </figure>
-
-      <figure class="sim-card reveal">
-        <div class="sim-video">
-          <span class="sim-solver">Abaqus/Explicit</span>
-          <video autoplay loop muted playsinline preload="metadata" aria-label="Blended wing body aircraft crash impact simulation">
-            <source src="Crash%20Analyze.mp4" type="video/mp4">
-          </video>
-        </div>
-        <figcaption class="sim-body">
-          <span class="sim-num">04 / Crashworthiness</span>
-          <h3>Blended-Wing-Body &mdash; Crash Impact</h3>
-          <p>Explicit dynamic ground-impact analysis of a blended-wing-body (BWB) airframe. Models large-deformation structural collapse and transient von Mises stress propagation through the impact event.</p>
-          <div class="sim-tags">
-            <span class="tag">Abaqus/Explicit</span>
-            <span class="tag">Crashworthiness</span>
-            <span class="tag">Impact Dynamics</span>
-            <span class="tag">Von Mises</span>
-          </div>
-        </figcaption>
-      </figure>
-
-      <figure class="sim-card reveal">
-        <div class="sim-video">
-          <span class="sim-solver">Abaqus/Standard</span>
-          <video autoplay loop muted playsinline preload="metadata" aria-label="Berkovich pyramidal indenter pressed into a bulk specimen">
-            <source src="Berkovich%20Indenter.mp4" type="video/mp4">
-          </video>
-        </div>
-        <figcaption class="sim-body">
-          <span class="sim-num">05 / Sharp-tip indentation</span>
-          <h3>Berkovich Indenter &mdash; 3D Contact</h3>
-          <p>Three-sided Berkovich pyramidal indenter driven into a bulk specimen. Abaqus/Standard contact model resolving the sharp-tip stress concentration and the von Mises field beneath the indent &mdash; the standard geometry for hardness and modulus measurement.</p>
-          <div class="sim-tags">
-            <span class="tag">Abaqus/Standard</span>
-            <span class="tag">Berkovich</span>
-            <span class="tag">Contact</span>
-            <span class="tag">Von Mises</span>
-          </div>
-        </figcaption>
-      </figure>
-
-      <figure class="sim-card reveal">
-        <div class="sim-video">
-          <span class="sim-solver">Abaqus/Standard</span>
-          <video autoplay loop muted playsinline preload="metadata" aria-label="Spherical indentation of an anisotropic material at 4500 N for indentation plastometry">
-            <source src="PIP%20Modeling%20Anisotropic%20Material.mp4" type="video/mp4">
-          </video>
-        </div>
-        <figcaption class="sim-body">
-          <span class="sim-num">06 / Indentation plastometry</span>
-          <h3>PIP &mdash; Anisotropic Material (Spherical, 4500 N)</h3>
-          <p>Profilometry-based Indentation Plastometry (PIP) of an anisotropic material: a spherical indenter loaded to 4500 N. Abaqus/Standard model used to recover direction-dependent plastic stress&ndash;strain response from the residual indent.</p>
-          <div class="sim-tags">
-            <span class="tag">Abaqus/Standard</span>
-            <span class="tag">Indentation Plastometry</span>
-            <span class="tag">Anisotropic Plasticity</span>
-            <span class="tag">Spherical Indenter</span>
-          </div>
-        </figcaption>
-      </figure>
-
+<!-- LATEST NEWS -->
+<section id="news" aria-labelledby="news-title">
+  <div class="news-inner">
+    <div class="news-head reveal">
+      <h2 class="news-title" id="news-title">Latest news</h2>
+      <a href="publications.html" class="news-all">All publications &rarr;</a>
     </div>
+    <ul class="news-list">
+      <li class="reveal"><a class="news-item" href="https://doi.org/10.1016/j.jmrt.2026.10.191" target="_blank" rel="noopener">
+        <span class="news-meta"><span class="news-date">Oct 2026</span><span class="news-tag pub">Published</span></span>
+        <span class="news-text">First-author paper on rapid property identification from shallow nanoindentation using actual tip geometry and ML, in <strong>J. Mater. Res. Technol.</strong> (IF 7.3).</span>
+      </a></li>
+      <li class="reveal"><a class="news-item" href="https://doi.org/10.1016/j.matdes.2026.117138" target="_blank" rel="noopener">
+        <span class="news-meta"><span class="news-date">Nov 2026</span><span class="news-tag pub">Published</span></span>
+        <span class="news-text">Co-authored paper on plastic property extraction from shallow indentation data, in <strong>Materials &amp; Design</strong> (IF 8.2).</span>
+      </a></li>
+      <li class="reveal"><a class="news-item" href="agents.html">
+        <span class="news-meta"><span class="news-date">2026</span><span class="news-tag prep">In preparation</span></span>
+        <span class="news-text">Manuscript on <strong>governed autonomous nanoindentation</strong> with LLM-orchestrated multi-agent control on a commercial instrument.</span>
+      </a></li>
+    </ul>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills" aria-labelledby="skills-title">
-  <div class="section-inner">
-    <span class="eyebrow reveal">Toolkit</span>
-    <h2 class="section-title reveal" id="skills-title">Technical skills</h2>
-    <p class="section-sub">A focused toolkit built around computational mechanics, simulation automation, and data-driven modeling.</p>
-    <div class="skills-grid">
-
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Professional skills</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Structural Simulation</span>
-          <span class="skill-tag">Mechanical FEA</span>
-          <span class="skill-tag">Nonlinear Analysis &amp; Contact Modeling</span>
-          <span class="skill-tag">Mesh Quality &amp; Strategy</span>
-          <span class="skill-tag">Design Sensitivity &amp; Parametric Studies</span>
-          <span class="skill-tag">Verification &amp; Validation</span>
-          <span class="skill-tag">Experiment-to-Simulation Correlation</span>
-          <span class="skill-tag">Cross-Functional Collaboration</span>
-        </div>
-      </div>
-
-      <div class="skill-group reveal">
-        <div class="skill-group-title">AI &amp; agentic systems</div>
-        <div class="skill-tags">
-          <span class="skill-tag">LLM Multi-Agent Systems</span>
-          <span class="skill-tag">Agent Orchestration</span>
-          <span class="skill-tag">Tool Use / Function Calling</span>
-          <span class="skill-tag">GUI / Computer-Use Automation</span>
-          <span class="skill-tag">Bayesian Optimization (GP + UCB)</span>
-          <span class="skill-tag">Autonomous Experiment Design</span>
-          <span class="skill-tag">Safety-Constrained Autonomous Systems</span>
-          <span class="skill-tag">REST API Integration</span>
-          <span class="skill-tag">LLM-Assisted Development</span>
-          <span class="skill-tag">Prompt Engineering</span>
-        </div>
-      </div>
-
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Simulation software</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Abaqus/CAE</span>
-          <span class="skill-tag">Nonlinear FEM</span>
-          <span class="skill-tag">Nonlinear contact</span>
-          <span class="skill-tag">Structural analysis</span>
-          <span class="skill-tag">Mesh convergence</span>
-          <span class="skill-tag">Model Build and Standardized Inputs</span>
-          <span class="skill-tag">Sensitivity Studies and Response Mapping</span>
-        </div>
-      </div>
-
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Programming and automation</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">MATLAB</span>
-          <span class="skill-tag">Git / GitHub</span>
-          <span class="skill-tag">Linux (Cluster)</span>
-          <span class="skill-tag">Simulation Workflow Automation</span>
-          <span class="skill-tag">Automated Post-Processing</span>
-          <span class="skill-tag">Data Preprocessing Pipelines</span>
-        </div>
-      </div>
-
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Machine learning</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Neural Networks</span>
-          <span class="skill-tag">Deep Kernel Learning (DKL)</span>
-          <span class="skill-tag">Hyperparameter Tuning</span>
-          <span class="skill-tag">Uncertainty-Aware Modeling</span>
-          <span class="skill-tag">Active Learning</span>
-          <span class="skill-tag">Surrogate Modeling</span>
-          <span class="skill-tag">Google Colab</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- AI AGENTS (flagship) -->
+<!-- AI AGENTS (highlight) -->
 <section id="agents" aria-labelledby="agents-title">
   <div class="agents-inner">
-    <span class="agents-eyebrow reveal">Flagship in progress &middot; first of its kind</span>
-    <h2 class="agents-headline reveal" id="agents-title">An <em><span class="gradient-text">autonomous multi-agent</span></em> system that runs a nanoindenter end-to-end.</h2>
-    <p class="agents-sub reveal">A scientist hands the system a goal in plain English. LLM agents plan the experiment, choose where to indent, drive the machine through GUI automation, monitor for safety, interpret results, and iterate &mdash; with Bayesian optimization in the loop. To my knowledge, no one has put autonomous agents in direct control of an iMicro nanoindenter before.</p>
+    <span class="agents-eyebrow reveal">Flagship research &middot; manuscript in preparation</span>
+    <h2 class="agents-headline reveal" id="agents-title"><em><span class="gradient-text">Governed</span></em> AI agents that run a commercial nanoindenter end-to-end.</h2>
+    <p class="agents-sub reveal">A scientist hands the system a goal in plain English. Seven coordinated LLM agents plan the experiment, choose where to indent, drive the iMicro through GUI automation, watch every signal for safety, interpret the results, and decide what to measure next with Bayesian optimization in the loop. To my knowledge, this is the first time autonomous agents have been put in direct control of an iMicro nanoindenter.</p>
+
+    <p class="agents-section-label reveal">How a run works</p>
+    <ol class="agents-flow reveal">
+      <li><h3>Goal</h3><p>Scientist states the objective in plain English.</p></li>
+      <li><h3>Plan</h3><p>Agents read SEM images and set depth, method, and budget.</p></li>
+      <li><h3>Choose site</h3><p>GP surrogate with cost-aware UCB picks the next indent.</p></li>
+      <li><h3>Run</h3><p>Stage moves and the test starts on the real instrument.</p></li>
+      <li><h3>Check</h3><p>Safety monitor and results agent vet every measurement.</p></li>
+      <li><h3>Deliver</h3><p>Hardness and uncertainty maps plus a full report.</p></li>
+    </ol>
 
 
-    <div class="agents-diagram reveal">
-      <img src="img_agent_system.png" alt="Architecture diagram of the autonomous multi-agent nanoindentation system showing Orchestrator, Image Analysis, Experiment Planner, Safety Monitor, Bayesian Optimizer, Machine Controller, and Results Interpreter agents communicating with a Flask HTTP server that drives the iMicro nanoindenter via GUI automation." loading="lazy" onerror="this.outerHTML=\'<div class=&quot;agents-diagram-fallback&quot;>system_architecture.png &middot; drop into Current Website/ folder<br><span style=&quot;color:var(--accent)&quot;>img_agent_system.png</span></div>\'">
-      <div class="agents-diagram-caption">System architecture &middot; LLM agents on the scientist&rsquo;s Mac drive the iMicro via a Flask REST API and GUI automation engine on the machine PC.</div>
-    </div>
 
-    <div class="agents-stats reveal">
-      <div class="agents-stat"><div class="agents-stat-val">07</div><div class="agents-stat-lbl">Coordinated LLM agents</div></div>
-      <div class="agents-stat"><div class="agents-stat-val">REST</div><div class="agents-stat-lbl">Mac &harr; Windows control plane</div></div>
-      <div class="agents-stat"><div class="agents-stat-val">GP+UCB</div><div class="agents-stat-lbl">Cost-aware Bayesian optimization</div></div>
-      <div class="agents-stat"><div class="agents-stat-val">LIVE</div><div class="agents-stat-lbl">Safety monitor with E-stop</div></div>
-    </div>
-
-    <div class="agents-grid">
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">🧠</div>
-        <h3>Orchestrator agent</h3>
-        <p>Receives the scientific goal, decomposes it, routes work to specialist agents, and writes the experiment log and final report.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">🔍</div>
-        <h3>Image analysis agent</h3>
-        <p>Segments phases and grain boundaries from SEM/optical images and converts pixel coordinates to physical stage coordinates in microns.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">🧪</div>
-        <h3>Experiment planner agent</h3>
-        <p>Sets target depth, hold time, method, stopping criteria, and exploration strategy based on material and budget.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">📈</div>
-        <h3>Bayesian optimizer agent</h3>
-        <p>Gaussian Process surrogate with a cost-aware UCB acquisition function picks the next-best indentation site from the candidate set.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">⚙️</div>
-        <h3>Machine controller</h3>
-        <p>move_stage, start_test, process_and_export, download_last_result — HTTP commands to the Windows PC, Excel results back.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">🛡️</div>
-        <h3>Safety monitor agent</h3>
-        <p>Continuously reads force, extension, displacement, and stage position. Detects anomalies, NaNs, and limit violations — can trigger emergency stop.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">📝</div>
-        <h3>Results interpreter agent</h3>
-        <p>Reads the downloaded Excel, flags outliers, updates the GP training data, and writes a plain-English log entry for each measurement.</p>
-      </div>
-      <div class="agent-card reveal">
-        <div class="agent-card-icon">🖥️</div>
-        <h3>Machine-PC bridge</h3>
-        <p>Flask REST server (port 5000) plus a GUI automation engine that physically clicks the InView nanoindentation software — no vendor API needed.</p>
-      </div>
-    </div>
-
-    <div class="agents-chips reveal">
-      <span class="agents-chip">Python</span>
-      <span class="agents-chip">LLM agents</span>
-      <span class="agents-chip">Flask / REST</span>
-      <span class="agents-chip">Gaussian Process</span>
-      <span class="agents-chip">UCB acquisition</span>
-      <span class="agents-chip">Active learning</span>
-      <span class="agents-chip">GUI automation</span>
-      <span class="agents-chip">iMicro / InView</span>
-      <span class="agents-chip">SEM image analysis</span>
-      <span class="agents-chip">Safety monitoring</span>
-    </div>
-
-    <div class="agents-status-row reveal">
-      <span class="agents-status-pill">In development · 2026</span>
-      <span class="agents-note">First end-to-end agent-driven nanoindenter to my knowledge. Hardness and uncertainty maps shipped to the scientist as the final deliverable.</span>
-    </div>
+    <div class="section-cta reveal"><a href="agents.html" class="btn btn-gradient btn-lg">Explore the full agent system &rarr;</a><span class="section-cta-note">Architecture, governance, and all 7 agents</span></div>
   </div>
 </section>
 
 <!-- RESEARCH FOCUS -->
-<section id="research" aria-labelledby="research-title" style="background:var(--bg);">
+<section id="research" aria-labelledby="research-title" style="background:var(--bg-soft);">
   <div class="section-inner">
     <span class="eyebrow eyebrow-accent reveal">Research focus</span>
     <h2 class="section-title reveal" id="research-title">Computational tools at the intersection of <em><span class="gradient-text">simulation</span></em> &amp; <em><span class="gradient-text">learning</span></em>.</h2>
@@ -1581,13 +1569,13 @@
         <div class="card-icon">🔬</div>
         <h3>Substrate-effect correction</h3>
         <p>Quantifying and correcting substrate influence on measured thin-film properties, including depth-dependent error maps and practical indentation depth guidance.</p>
-            <a href="research-substrate-2.html" class="card-explore">Explore research</a>
+            <a href="research-substrate.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">⚙</div>
         <h3>FEM automation at scale</h3>
         <p>Python-driven Abaqus/CAE pipelines for high-throughput parametric studies with elastic-plastic material models, automated post-processing, and reproducible V&V workflows.</p>
-            <a href="research-fem-2.html" class="card-explore">Explore research</a>
+            <a href="research-fem.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">🧠</div>
@@ -1599,122 +1587,24 @@
         <div class="card-icon">🔭</div>
         <h3>Microscopy-informed tip calibration</h3>
         <p>Measured spherical tip profiles from microscopy integrated directly into Abaqus 2D/3D contact models, reducing experiment-simulation mismatch from ~20% to below 5%.</p>
-            <a href="research-tip-2.html" class="card-explore">Explore research</a>
+            <a href="research-tip.html" class="card-explore">Explore research</a>
     </article>
       <article class="card reveal">
         <div class="card-icon">🤖</div>
         <h3>Autonomous agents for nanoindentation</h3>
-        <p>An LLM multi-agent system that plans, runs, and interprets nanoindentation experiments on the iMicro — with Bayesian optimization, GUI automation, and a live safety monitor.</p>
-            <a href="#agents" class="card-explore">See the system</a>
+        <p>An LLM multi-agent system that plans, runs, and interprets nanoindentation experiments on a commercial iMicro, with Bayesian optimization, GUI automation, and a live safety monitor. Manuscript in preparation.</p>
+            <a href="agents.html" class="card-explore">See the system</a>
     </article>
     </div>
+    <div class="section-cta reveal"><a href="research.html" class="btn btn-gradient btn-lg">Projects &amp; hackathon &rarr;</a><span class="section-cta-note">Featured projects and time-boxed builds</span></div>
       </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" aria-labelledby="projects-title">
-  <div class="section-inner">
-    <span class="eyebrow reveal">Selected work</span>
-    <h2 class="section-title reveal" id="projects-title">Featured projects</h2>
-    <p class="section-sub">Selected work combining high-throughput simulation and machine learning for nanoindentation mechanics.</p>
-    <div class="projects-grid">
-      <article class="project-tile reveal">
-        <div class="project-number">Project 01 · Jul 2024 – Present</div>
-        <h3>Substrate effect sensitivity study: FEM automation and data-driven guidance</h3>
-        <p>Automated high-throughput Abaqus/CAE nanoindentation simulations for thin-film/substrate systems across a wide range of property and geometry combinations. Results converted into depth-dependent error and regime maps that provide engineers with practical guidance on indentation depth and film thickness selection to minimize substrate influence and reduce costly re-testing.</p>
-        <div class="method-tags">
-          <span class="tag">Abaqus/CAE</span><span class="tag">Python</span><span class="tag">Parametric FEM</span><span class="tag">Error Regime Maps</span>
-        </div>
-      </article>
-      <article class="project-tile reveal">
-        <div class="project-number">Project 02 · Nov 2024 – Present</div>
-        <h3>FEM and ML framework for substrate-effect correction in thin-film nanoindentation</h3>
-        <p>An automated FEM + ML correction workflow compensates for substrate coupling and recovers bulk-equivalent properties from indentation responses across elastic-plastic property ranges. Traceable and reproducible pipelines align with industry expectations for verification and process control in materials development and manufacturing.</p>
-        <div class="method-tags">
-          <span class="tag">Abaqus</span><span class="tag">Neural Networks</span><span class="tag">Deep Kernel Learning</span><span class="tag">Inverse Modeling</span>
-        </div>
-      </article>
-      <article class="project-tile reveal">
-        <div class="project-number">Project 03 · Nov 2023 – 2025</div>
-        <h3>Role of spherical tip geometry in nanoindentation at shallow depths</h3>
-        <p>Measured spherical tip profiles from microscopy are incorporated directly into Abaqus 2D and 3D contact models, replacing idealized geometry assumptions. This reduces experiment-simulation mismatch from approximately 20% to below 5%, enabling reliable property extraction for thin films in electronics, coatings, aerospace, and energy applications.</p>
-        <div class="method-tags">
-          <span class="tag">Microscopy Metrology</span><span class="tag">Abaqus Contact</span><span class="tag">2D/3D FEM</span><span class="tag">Shallow-Depth Analysis</span>
-        </div>
-        <p style="margin-top:12px;font-family:var(--font-mono);font-size:12px;"><a href="https://doi.org/10.1016/j.jmrt.2026.10.191" target="_blank" rel="noopener" style="color:var(--accent);">Published in J. Mater. Res. Technol. (2026) &rarr;</a></p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="hackathon" aria-labelledby="hackathon-title">
-  <div class="section-inner">
-    <span class="eyebrow reveal">Time-boxed builds</span>
-    <h2 class="section-title reveal" id="hackathon-title">Hackathon</h2>
-    <p class="section-sub">Short-burst, high-intensity competitions building real scientific tools from scratch under time pressure.</p>
-
-    <div class="hackathon-card reveal">
-      <!-- LEFT: Overview -->
-      <div class="hack-left">
-        <div>
-          <div class="hack-event-tag">⚡ UTK·MRSEC Hackathon · Day 2 · 2026</div>
-          <h3>AI-Powered Magnetic Materials Characterization</h3>
-          <p>Given raw AFM/MFM binary files from a combinatorial magnetic thin-film library, I built a complete image analysis pipeline from scratch under a 3-hour time constraint — extracting structural and magnetic features and mapping them spatially to identify composition-driven property gradients.</p>
-        </div>
-        <div class="hack-stats">
-          <div class="hack-stat">
-            <div class="hack-stat-val">~3 hrs</div>
-            <div class="hack-stat-lbl">Build time</div>
-          </div>
-          <div class="hack-stat">
-            <div class="hack-stat-val">AFM/MFM</div>
-            <div class="hack-stat-lbl">Data source</div>
-          </div>
-          <div class="hack-stat">
-            <div class="hack-stat-val">Python</div>
-            <div class="hack-stat-lbl">LLM-assisted dev</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Highlights + CTA -->
-      <div class="hack-right">
-        <div>
-          <div class="hack-right-label">What was built</div>
-          <div class="hack-bullets">
-            <div class="hack-bullet"><span class="hack-bullet-arrow">→</span><span>FFT autocorrelation (Wiener–Khinchin) to map magnetic domain correlation lengths across the library</span></div>
-            <div class="hack-bullet"><span class="hack-bullet-arrow">→</span><span>Watershed segmentation for nanoparticle detection and size distribution analysis at every site</span></div>
-            <div class="hack-bullet"><span class="hack-bullet-arrow">→</span><span>AFM roughness suite (Sa, Sq, Rz, Rsk, Rku) + Gabor texture + edge density spatial maps</span></div>
-            <div class="hack-bullet"><span class="hack-bullet-arrow">→</span><span>MFM domain analysis: magnetic intensity, contrast, circularity, and size uniformity index</span></div>
-            <div class="hack-bullet"><span class="hack-bullet-arrow">→</span><span>Cross-feature correlation revealing magnetic ordering is composition-driven, not morphology-driven</span></div>
-          </div>
-        </div>
-        <div>
-          <div class="hack-chips">
-            <span class="hack-chip">Python</span>
-            <span class="hack-chip">FFT / IFFT</span>
-            <span class="hack-chip">Watershed</span>
-            <span class="hack-chip">Gabor filters</span>
-            <span class="hack-chip">scikit-image</span>
-            <span class="hack-chip">AFM/MFM data</span>
-            <span class="hack-chip">LLM-assisted dev</span>
-          </div>
-          <div class="hack-cta-row">
-            <a href="hackathon-2.html" class="hack-explore-btn">Explore full project</a>
-            <span class="hack-date-note">March 3, 2026 · ~3 hours</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PUBLICATIONS -->
+<!-- PUBLICATIONS (highlight) -->
 <section id="publications" aria-labelledby="publications-title" style="background:var(--bg);">
   <div class="section-inner">
     <span class="eyebrow reveal">Writing</span>
-    <h2 class="section-title reveal" id="publications-title">Publications &amp; manuscripts</h2>
+    <h2 class="section-title reveal" id="publications-title">Recent publications</h2>
     <p class="section-sub">All authors listed as they appear in the published or submitted versions. * denotes corresponding author.</p>
     <div class="pub-list">
 
@@ -1741,325 +1631,135 @@
           <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6814865" class="pub-btn" target="_blank" rel="noopener">Preprint (SSRN)</a>
         </div>
       </article>
-
-      <article class="pub-item reveal">
-        <span class="pub-status status-prep">In preparation</span>
-        <h3>A FEM and Machine Learning Framework for Substrate-Effect Correction in Thin-Film Nanoindentation</h3>
-        <p class="pub-authors"><strong>Munireach Nannory*</strong>, Vivek Chawla, Stephen Puplampu, Haochen Zhu, Philip Rack, Dayakar Penumadu, Timothy Truster</p>
-        <p class="pub-venue">Manuscript in preparation (full draft complete) · 2025</p>
-        <div class="pub-actions">
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">PDF (coming)</span>
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">DOI (pending)</span>
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">BibTeX</span>
-        </div>
-      </article>
-
-      <article class="pub-item reveal">
-        <span class="pub-status status-prep">In preparation</span>
-        <h3>Learning Substrate-Effect Regimes in Thin-Film Indentation: Depth-Normalized Metrics, Sensitivity Analysis, and Active Experiment Design</h3>
-        <p class="pub-authors"><strong>Munireach Nannory*</strong>, Vivek Chawla, Stephen Puplampu, Haochen Zhu, Philip Rack, Dayakar Penumadu, Timothy Truster</p>
-        <p class="pub-venue">Manuscript in preparation · 2026</p>
-        <div class="pub-actions">
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">PDF (coming)</span>
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">DOI (pending)</span>
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">BibTeX</span>
-        </div>
-      </article>
-
-      <article class="pub-item reveal">
-        <span class="pub-status status-prep">In preparation</span>
-        <h3>Governed Autonomous Nanoindentation on a Commercial Instrument with LLM-Orchestrated Multi-Agent Control</h3>
-        <p class="pub-authors"><strong>Munireach Nannory*</strong>, Stephen Puplampu, Sheryl Sanchez, Oliver Winkler, Vivek Chawla, Sergei Kalinin, Mahshid Ahmadi, Timothy Truster, Dayakar Penumadu</p>
-        <p class="pub-venue">Manuscript in preparation · 2026</p>
-        <div class="pub-actions">
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">PDF (coming)</span>
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">DOI (pending)</span>
-          <span class="pub-btn pub-btn-disabled" aria-disabled="true">BibTeX</span>
-        </div>
-      </article>
-
     </div>
-    <p class="pub-note reveal">Manuscripts in preparation available on request.</p>
+    <div class="section-cta reveal"><a href="publications.html" class="btn btn-gradient btn-lg">All publications &amp; talks &rarr;</a><span class="section-cta-note">3 manuscripts in preparation · 10 talks and posters</span></div>
   </div>
 </section>
 
-<!-- TALKS -->
-<section id="talks" aria-labelledby="talks-title">
+<!-- SIMULATIONS (highlight) -->
+<section id="simulations" aria-labelledby="simulations-title">
   <div class="section-inner">
-    <span class="eyebrow reveal">Speaking</span>
-    <h2 class="section-title reveal" id="talks-title">Talks &amp; presentations</h2>
-    <p class="section-sub">Peer-reviewed conference contributions, university seminars, and poster presentations.</p>
+    <span class="eyebrow reveal eyebrow-accent">Simulation · FEA</span>
+    <h2 class="section-title reveal" id="simulations-title">Finite element simulations <em class="gradient-text" style="font-family:var(--font-serif);font-style:normal;">in motion</em></h2>
+    <p class="section-sub reveal">A selection of nonlinear FEA models spanning contact mechanics, coupled thermal&ndash;mechanical analysis, metal forming, and crashworthiness, built in Abaqus/Standard and Abaqus/Explicit.</p>
 
-    <h3 class="sub-section-title reveal">Conference presentations</h3>
-    <div class="talks-list">
-      <article class="talk-item reveal">
-        <div class="talk-year">2025</div>
-        <div class="talk-content">
-          <h3>A novel method for identifying the actual geometry of a spherical nanoindentation tip at shallow depths: Experiments and finite element simulations</h3>
-          <p class="talk-venue">USNCCM 18 · Chicago, IL · July 20–24, 2025</p>
-          <p class="talk-summary">Munireach Nannory, Vivek Chawla, Dayakar Penumadu, Timothy Truster. CAMM Travel Award recipient.</p>
-        </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2024</div>
-        <div class="talk-content">
-          <h3>FE nanoindentation simulation for characterization at material extremes</h3>
-          <p class="talk-venue">ASME IMECE 2024 · Portland, OR · November 17–21, 2024</p>
-          <p class="talk-summary">Munireach Nannory, Vivek Chawla, Dayakar Penumadu, Timothy Truster. Paper No. IMECE2024-150501. Travel grant recipient.</p>
-        </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2024</div>
-        <div class="talk-content">
-          <h3>Nanoindentation simulations and machine learning for characterization at material extremes</h3>
-          <p class="talk-venue">TEAMS 2024 Tennessee Advanced Materials Summit · July 9–10, 2024</p>
-          <p class="talk-summary">Munireach Nannory, Vivek Chawla, Dayakar Penumadu, Timothy Truster.</p>
-        </div>
-      </article>
-    </div>
+    <div class="sim-grid">
 
-    <h3 class="sub-section-title reveal">University seminars</h3>
-    <p style="font-size:15px;color:var(--text-secondary);margin-bottom:24px;" class="reveal">UTK-MRSEC Center for Advanced Materials and Manufacturing, University of Tennessee, Knoxville.</p>
-    <div class="talks-list">
-      <article class="talk-item reveal">
-        <div class="talk-year">2025</div>
-        <div class="talk-content">
-          <h3>Advancements in Finite Element Simulation for Nanoindentation: A Novel Method for Identifying Actual Indenter Geometry at Shallow Penetration Depths</h3>
-          <p class="talk-venue">UTK-MRSEC · 2025</p>
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Standard</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="3D contact simulation of an indenter tip pressed into a specimen">
+            <source src="Actual%20Tip%203D%20Modeling.mp4" type="video/mp4">
+          </video>
         </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2025</div>
-        <div class="talk-content">
-          <h3>Substrate Correction of Nanoindentation Depth-Load Response: FEM and Machine Learning Prediction of Bulk/Film Response from Thin-Film Nanoindentation</h3>
-          <p class="talk-venue">UTK-MRSEC · 2025</p>
-        </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2024</div>
-        <div class="talk-content">
-          <h3>Framework for Incorporating Measured Spherical Indenter Geometry in Abaqus/CAE: 2D vs 3D FEM Compared with Experiments</h3>
-          <p class="talk-venue">UTK-MRSEC · 2024</p>
-        </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2023</div>
-        <div class="talk-content">
-          <h3>Finite Element Overview and Literature Review for Characterization of Materials at Extremes</h3>
-          <p class="talk-venue">UTK-MRSEC · 2023</p>
-        </div>
-      </article>
-    </div>
+        <figcaption class="sim-body">
+          <span class="sim-num">01 / Contact mechanics</span>
+          <h3>Instrumented Indenter Tip: 3D Contact</h3>
+          <p>3D contact model of an as-measured indenter tip pressed into a bulk specimen. Reproduces the real tip geometry to resolve near-surface von Mises stress fields. This underpins my nanoindentation tip-calibration research.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Standard</span>
+            <span class="tag">Contact</span>
+            <span class="tag">Von Mises</span>
+            <span class="tag">Nanoindentation</span>
+          </div>
+        </figcaption>
+      </figure>
 
-    <h3 class="sub-section-title reveal">Poster presentations</h3>
-    <div class="talks-list">
-      <article class="talk-item reveal">
-        <div class="talk-year">2026</div>
-        <div class="talk-content">
-          <h3>Learning Substrate-Effect Regimes in Thin-Film Indentation: Depth-Normalized Metrics, Sensitivity Analysis, and Active Experiment Design</h3>
-          <p class="talk-venue">Advanced Materials and Manufacturing, UTK · 2026</p>
-          <p class="talk-summary">Best Poster, IRG2 Poster Competition.</p>
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Standard</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="Coupled thermal-mechanical simulation of a bell nozzle">
+            <source src="nozzle%20video.mp4" type="video/mp4">
+          </video>
         </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2025</div>
-        <div class="talk-content">
-          <h3>Multiscale 2D/3D Finite Element Simulation for Nanoindentation: Mesh, Friction, and Surrogate/ML Modeling</h3>
-          <p class="talk-venue">Advanced Materials and Manufacturing, UTK · 2025</p>
-          <p class="talk-summary">Compared mesh refinement strategies, friction sensitivity, and variational surrogate models with active learning to improve data efficiency.</p>
+        <figcaption class="sim-body">
+          <span class="sim-num">02 / Thermal&ndash;mechanical</span>
+          <h3>Bell Nozzle: Coupled Thermal&ndash;Mechanical</h3>
+          <p>Full 360&deg; rocket bell nozzle with dual ceramic thermal-barrier coatings over a steel substrate. Sequentially coupled thermal&ndash;mechanical analysis resolving the transient temperature field (NT11) and induced thermal stresses.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Standard</span>
+            <span class="tag">Thermal&ndash;Mechanical</span>
+            <span class="tag">Coatings (TBC)</span>
+            <span class="tag">NT11</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Explicit</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="Blended wing body aircraft crash impact simulation">
+            <source src="Crash%20Analyze.mp4" type="video/mp4">
+          </video>
         </div>
-      </article>
-      <article class="talk-item reveal">
-        <div class="talk-year">2023</div>
-        <div class="talk-content">
-          <h3>FE Nanoindentation Simulations for Characterization at Material Extremes (Compositionally Complex Alloy Design and Characterization for Extreme Environments)</h3>
-          <p class="talk-venue">Advanced Materials and Manufacturing, UTK · 2023</p>
+        <figcaption class="sim-body">
+          <span class="sim-num">04 / Crashworthiness</span>
+          <h3>Blended-Wing-Body: Crash Impact</h3>
+          <p>Explicit dynamic ground-impact analysis of a blended-wing-body (BWB) airframe. Models large-deformation structural collapse and transient von Mises stress propagation through the impact event.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Explicit</span>
+            <span class="tag">Crashworthiness</span>
+            <span class="tag">Impact Dynamics</span>
+            <span class="tag">Von Mises</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="sim-card reveal">
+        <div class="sim-video">
+          <span class="sim-solver">Abaqus/Standard</span>
+          <video autoplay loop muted playsinline preload="metadata" aria-label="Berkovich pyramidal indenter pressed into a bulk specimen">
+            <source src="Berkovich%20Indenter.mp4" type="video/mp4">
+          </video>
         </div>
-      </article>
+        <figcaption class="sim-body">
+          <span class="sim-num">05 / Sharp-tip indentation</span>
+          <h3>Berkovich Indenter: 3D Contact</h3>
+          <p>Three-sided Berkovich pyramidal indenter driven into a bulk specimen. Abaqus/Standard contact model resolving the sharp-tip stress concentration and the von Mises field beneath the indent. This is the standard geometry for hardness and modulus measurement.</p>
+          <div class="sim-tags">
+            <span class="tag">Abaqus/Standard</span>
+            <span class="tag">Berkovich</span>
+            <span class="tag">Contact</span>
+            <span class="tag">Von Mises</span>
+          </div>
+        </figcaption>
+      </figure>
     </div>
+    <div class="section-cta reveal"><a href="simulations.html" class="btn btn-gradient btn-lg">See all 6 simulations &rarr;</a><span class="section-cta-note">Including cold rolling and indentation plastometry</span></div>
   </div>
 </section>
 
-
-<!-- GALLERY -->
-<section id="gallery" aria-labelledby="gallery-title">
+<!-- EXPLORE MORE -->
+<section id="more" aria-labelledby="more-title" style="background:var(--bg-soft);">
   <div class="section-inner">
-    <span class="eyebrow reveal">In the field</span>
-    <h2 class="section-title reveal" id="gallery-title">Conference moments</h2>
-    <p class="section-sub">Conference presentations, award moments, and research milestones.</p>
-
-    <!-- Row 1: portrait + landscape — natural aspect ratios -->
-    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:16px;margin-bottom:16px;align-items:start;">
-      <article class="gallery-card reveal" title="Click to enlarge">
-        <div class="g-img">
-          <img src="img_gallery_grad_with_advisor.png" alt="Munireach Nannory with Prof. Timothy Truster at USNCCM 18 Chicago 2025" loading="lazy" style="object-position:center 5%;">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Milestone · MS Graduation · UTK 2025</span>
-          <p>MS graduation ceremony, University of Tennessee, Knoxville.</p>
-        </div>
-      </article>
-      <article class="gallery-card reveal" title="Click to enlarge">
-        <div class="g-img">
-          <img src="img_gallery_grad_ceremony.png" alt="Munireach Nannory presenting at USNCCM 18 on FEM nanoindentation at shallow depth" loading="lazy" style="object-position:center 15%;">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Poster · ASME IMECE 2024 · Paper No. IMECE2024-150501</span>
-          <p>Presenting the FE Nanoindentation Simulation poster at ASME IMECE 2024.</p>
-        </div>
-      </article>
-    </div>
-
-    <!-- Row 3: 3 equal columns — all showing full body/scene -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;align-items:start;">
-      <article class="gallery-card reveal" title="Click to enlarge">
-        <div class="g-img">
-          <img src="img_gallery_imece_poster.png" alt="Munireach Nannory at ASME IMECE 2024 Exhibit Hall Portland Oregon" loading="lazy" style="object-position:center 5%;">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Award · Student of the Year · UTK-MRSEC 2025</span>
-          <p>Student of the Year, IRG 2 Graduate Research Assistant (Research Excellence), UTK-MRSEC, 2025.</p>
-        </div>
-      </article>
-      <article class="gallery-card reveal" title="Click to enlarge">
-        <div class="g-img">
-          <img src="img_gallery_student_of_year.png" alt="Munireach Nannory presenting research on material characterization at IMECE 2024" loading="lazy" style="object-position:center 20%;">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Conference · ASME IMECE 2024 · Portland, OR</span>
-          <p>ASME IMECE 2024, Portland, OR.</p>
-        </div>
-      </article>
-      <article class="gallery-card reveal" title="Click to enlarge">
-        <div class="g-img">
-          <img src="img_gallery_imece_exhibit.png" alt="Munireach Nannory at MS graduation ceremony UTK 2025" loading="lazy" style="object-position:center 5%;">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Talk · USNCCM 18 · 2025</span>
-          <p>Presenting on spherical tip geometry identification for nanoindentation at USNCCM 18.</p>
-        </div>
-      </article>
-    </div>
-
-    <!-- Row 4: full-width award — tall to show full group -->
-    <div>
-      <article class="gallery-card reveal" title="Click to enlarge">
-        <div class="g-img">
-          <img src="img_gallery_usnccm_talk.png" alt="Munireach Nannory receiving Student of the Year award UTK-MRSEC 2025" loading="lazy" style="object-position:center 20%;">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Conference · USNCCM 18 · Chicago 2025</span>
-          <p>With advisor Prof. Timothy Truster at USNCCM 18, Chicago.</p>
-        </div>
-      </article>
-    </div>
-
-    <!-- Row 5: Certificate of Achievement — one card at ~33% width -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
-      <article class="gallery-card reveal">
-        <div class="g-img">
-          <img src="best_poster.png" alt="Munireach Nannory receiving Certificate of Achievement for Outstanding Research and Scholarly Presentation at poster session" loading="lazy">
-        </div>
-        <div class="g-cap">
-          <span class="g-tag">Award · Outstanding Research &amp; Scholarly Presentation · 2026</span>
-          <p>Certificate of Achievement for outstanding research and scholarly presentation at the student poster session.</p>
-        </div>
-      </article>
-    </div>
-
-  </div>
-</section>
-<!-- AWARDS -->
-
-<section id="awards" aria-labelledby="awards-title">
-  <div class="section-inner">
-    <span class="eyebrow reveal">Recognition</span>
-    <h2 class="section-title reveal" id="awards-title">Awards &amp; honors</h2>
-    <p class="section-sub">Competitive honors and funding received during graduate training.</p>
-    <div class="awards-list">
-      <div class="award-item reveal">
-        <div class="award-year">2026</div>
-        <div><div class="award-title">Best Poster, IRG 2 Poster Competition, Advanced Materials and Manufacturing</div><div class="award-org">University of Tennessee, Knoxville</div></div>
-      </div>
-      <div class="award-item reveal">
-        <div class="award-year">2025</div>
-        <div><div class="award-title">Student of the Year, IRG 2 Graduate Research Assistant (Research Excellence)</div><div class="award-org">University of Tennessee, Knoxville</div></div>
-      </div>
-      <div class="award-item reveal">
-        <div class="award-year">2025</div>
-        <div><div class="award-title">CAMM Travel Award (to present at USNCCM 18)</div><div class="award-org">University of Tennessee, Knoxville</div></div>
-      </div>
-      <div class="award-item reveal">
-        <div class="award-year">2024</div>
-        <div><div class="award-title">Travel Grant Recipient</div><div class="award-org">ASME IMECE 2024, Portland, OR</div></div>
-      </div>
-      <div class="award-item reveal">
-        <div class="award-year">2024–</div>
-        <div><div class="award-title">NSF-funded PhD Research Assistantship</div><div class="award-org">University of Tennessee, Knoxville · Aug 2024 to present</div></div>
-      </div>
-      <div class="award-item reveal">
-        <div class="award-year">2023–25</div>
-        <div><div class="award-title">NSF-funded MS Research Assistantship</div><div class="award-org">University of Tennessee, Knoxville · Aug 2023 to May 2025</div></div>
-      </div>
-      <div class="award-item reveal">
-        <div class="award-year">2022</div>
-        <div><div class="award-title">Top-Ranked Scholar (Cohorts 50 and 51), BS Civil Engineering (Honors)</div><div class="award-org">Paññasastra University of Cambodia, Phnom Penh</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" aria-labelledby="about-title" style="background:var(--bg-soft);">
-  <div class="section-inner">
-    <span class="eyebrow reveal">About</span>
-    <h2 class="section-title reveal" id="about-title">A researcher building tools that are <em><span class="gradient-text">traceable</span></em> and <em><span class="gradient-text">reproducible</span></em>.</h2>
-    <div class="about-inner reveal">
-      <p>I am a PhD candidate in Civil and Environmental Engineering (Structural Engineering concentration) at the University of Tennessee, Knoxville, with a 3.97 GPA and about three years of experience building nonlinear finite element models in Abaqus/CAE.</p>
-      <p>My research focuses on making thin-film nanoindentation more reliable. I develop automated FEM workflows in Python, run high-throughput parametric studies on Linux and HPC clusters, and build machine learning pipelines that extract intrinsic film properties while correcting for substrate-driven error.</p>
-      <p>I enjoy correlating simulations to experimental results and building workflows that are traceable, reproducible, and easy for collaborators to use. Recently I have been extending this further: building an autonomous multi-agent system in which LLM agents plan experiments, drive the iMicro nanoindenter, monitor safety, and interpret results end-to-end.</p>
-      <p>I am interested in CAE, FEA, and structural simulation roles — and in research engineering roles where automation, machine learning, and agent-based control can make experiments and simulations dramatically more efficient.</p>
-      <p style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="mailto:nannorymunireach22@gmail.com" class="btn btn-outline">Email me</a>
-        <a href="https://www.linkedin.com/in/munireach-nannory-b70051260" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- CV -->
-<section id="cv" aria-labelledby="cv-title" style="background:var(--bg);">
-  <div class="section-inner">
-    <span class="eyebrow reveal">CV</span>
-    <h2 class="section-title reveal" id="cv-title">Curriculum vitae</h2>
-    <div class="cv-download-box reveal">
-      <div>
-        <h3>Download full CV</h3>
-        <p>PDF · Last updated 2026</p>
-      </div>
-      <a href="resume.pdf" class="btn btn-primary btn-lg" download>↓ Download CV (PDF)</a>
-    </div>
-    <div class="cv-snapshot reveal">
-      <div class="cv-section">
-        <div class="cv-section-title">Education</div>
-        <div class="cv-entry"><h4>PhD, Civil and Environmental Engineering</h4><p>Structural Engineering · UTK · May 2024 – present · GPA 3.97</p></div>
-        <div class="cv-entry"><h4>MS, Civil and Environmental Engineering</h4><p>Structural Engineering · UTK · Aug 2023 – May 2025</p></div>
-        <div class="cv-entry"><h4>BS, Civil Engineering (Honors)</h4><p>Paññasastra University of Cambodia · 2016–2022 · Top-ranked scholar</p></div>
-        <div class="cv-entry"><h4>BA, Teaching English as a Foreign Language</h4><p>Institute of Foreign Languages, Royal University of Phnom Penh · 2017–2021</p></div>
-      </div>
-      <div class="cv-section">
-        <div class="cv-section-title">Research experience</div>
-        <div class="cv-entry"><h4>Graduate Research Assistant (NSF-funded)</h4><p>UTK CEE · Aug 2023 – present</p></div>
-        <div class="cv-entry"><h4>FEM + ML for substrate-effect correction</h4><p>Nov 2024 – present · Automated Abaqus workflows, parametric studies, ML inversion</p></div>
-        <div class="cv-entry"><h4>Substrate effect sensitivity study</h4><p>Jul 2024 – present · Depth-error maps, data-driven regime classification</p></div>
-        <div class="cv-entry"><h4>Spherical tip geometry characterization</h4><p>Nov 2023 – 2025 · Microscopy-to-FEM, mismatch reduced to &lt;5%</p></div>
-      </div>
-      <div class="cv-section">
-        <div class="cv-section-title">Key skills</div>
-        <div class="cv-entry"><h4>Simulation</h4><p>Abaqus/CAE, nonlinear FEM, contact mechanics, elastic-plastic modeling</p></div>
-        <div class="cv-entry"><h4>Programming</h4><p>Python, MATLAB, automation scripting, data pipelines, Linux/HPC, Git</p></div>
-        <div class="cv-entry"><h4>Machine learning</h4><p>Neural networks, deep kernel learning, uncertainty-aware modeling, active learning</p></div>
-      </div>
+    <span class="eyebrow reveal">Explore</span>
+    <h2 class="section-title reveal" id="more-title">More about my work</h2>
+    <p class="section-sub reveal">Each page goes deeper into one part of my research and background.</p>
+    <div class="more-grid">
+      <a class="more-card reveal" id="hackathon" href="research.html">
+        <span class="more-icon" aria-hidden="true">🧩</span>
+        <h3>Projects &amp; hackathon</h3>
+        <p>Substrate-effect studies, FEM + ML correction, tip-geometry work, and an AI-powered magnetic materials pipeline built in 3 hours.</p>
+        <span class="card-explore">Explore</span>
+      </a>
+      <a class="more-card reveal" href="publications.html#talks">
+        <span class="more-icon" aria-hidden="true">🎤</span>
+        <h3>Talks &amp; posters</h3>
+        <p>Conference presentations at USNCCM 18, ASME IMECE 2024, and TEAMS 2024, plus university seminars and posters.</p>
+        <span class="card-explore">Explore</span>
+      </a>
+      <a class="more-card reveal" href="recognition.html">
+        <span class="more-icon" aria-hidden="true">🏆</span>
+        <h3>Awards &amp; moments</h3>
+        <p>Student of the Year, Best Poster, travel awards, NSF-funded assistantships, and photos from conferences.</p>
+        <span class="card-explore">Explore</span>
+      </a>
+      <a class="more-card reveal" href="about.html">
+        <span class="more-icon" aria-hidden="true">👋</span>
+        <h3>About, skills &amp; CV</h3>
+        <p>My background, technical toolkit, education, and research experience, with a downloadable CV.</p>
+        <span class="card-explore">Explore</span>
+      </a>
     </div>
   </div>
 </section>
@@ -2105,19 +1805,21 @@
     </div>
   </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer role="contentinfo">
   <span class="footer-copy">© 2026 Munireach Nannory · Knoxville, TN</span>
   <nav class="footer-links" aria-label="Footer navigation">
-    <a href="#agents">AI Agents</a>
-    <a href="#research">Research</a>
-    <a href="#publications">Publications</a>
-    <a href="#talks">Talks</a>
-    <a href="#hackathon">Hackathon</a>
-    <a href="#awards">Awards</a>
+    <a href="index.html">Home</a>
+    <a href="agents.html">AI Agents</a>
+    <a href="research.html">Research</a>
+    <a href="publications.html">Publications</a>
+    <a href="simulations.html">Simulations</a>
+    <a href="recognition.html">Awards</a>
+    <a href="about.html">About &amp; CV</a>
     <a href="#contact">Contact</a>
-    <a href="resume.pdf" download>CV</a>
+    <a href="resume.pdf" download>CV (PDF)</a>
   </nav>
 </footer>
 
@@ -2182,7 +1884,7 @@
       Object.assign(navLinks.style, {
         display: 'flex', flexDirection: 'column', position: 'absolute',
         top: '60px', left: '0', right: '0',
-        background: 'var(--nav-bg)', backdropFilter: 'blur(20px)',
+        background: 'var(--bg)', alignItems: 'stretch', boxShadow: 'var(--shadow-lg)',
         padding: '18px 24px 26px', borderBottom: '1px solid var(--border)', gap: '6px'
       });
     } else {
@@ -2213,7 +1915,7 @@
     const cap = card.querySelector('.g-cap p');
     const tag = card.querySelector('.g-tag');
     lbImg.src = img.src; lbImg.alt = img.alt;
-    lbCaption.textContent = (tag ? tag.textContent + ' — ' : '') + (cap ? cap.textContent : '');
+    lbCaption.textContent = (tag ? tag.textContent + ' · ' : '') + (cap ? cap.textContent : '');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -2234,15 +1936,6 @@
     if (e.key === 'ArrowRight') lbNavigate(1);
   });
 </script>
-
-<!-- LIGHTBOX -->
-<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <button class="lightbox-close" id="lbClose" aria-label="Close">&#10005;</button>
-  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
-  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next image">&#8250;</button>
-  <img id="lbImg" src="" alt="">
-  <div class="lightbox-caption" id="lbCaption"></div>
-</div>
 
 </body>
 </html>
